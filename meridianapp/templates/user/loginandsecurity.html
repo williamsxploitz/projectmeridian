@@ -1,0 +1,114 @@
+{% extends "user/profile-layout.html" %}
+
+{%block title%}
+    <title>Login and Security - La Tienda Meridian</title>
+    {%endblock%}
+
+{% block Pagetitle %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12">            
+            <p style="font-size: 10px;">
+                <span><a href="#" class="sidelink">Home > &nbsp;</a></span>
+                <span><a href="#" class="sidelink">My Account > &nbsp;</a></span>
+                <span><a href="#" class="sidelink" style="color:#AD343E !important">Profile &nbsp;</a></span>
+                <span></span>
+                <span></span>
+            </p>
+        </div>
+        <div class="col-md-12">            
+            <h4 style="letter-spacing: 10px; word-spacing: 10px;">MY PROFILE</h4>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- Page Title and link string -->
+
+{% block session_name %}
+{% if session.get('user') != None %}
+Hi, <a href="{{url_for('user_account')}}"  class="logo-nav-link me-4" style="color:#AD343E; font-weight: 700;">
+    {{ details.username.upper()}}
+</a>
+<a href="{{url_for('user_logout')}}"  class="logo-nav-link btn btn-dark btn-sm">
+    logout
+</a>
+{% else %}
+<a href="{{url_for('user_signup')}}"  class="logo-nav-link">
+    login/register
+</a>
+</span>
+
+  {% endif %}
+  {% endblock %}
+
+{% block maincontent %}
+      <!-- Content -->
+      <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4" style="background-color:rgb(245, 242, 242);">
+          <h2 class="h3 text-center mt-2" style="color:#AD343E;">Login & Security</h2> <hr>
+          <div class="row">
+            {%with msg=get_flashed_messages()%}
+              {%if msg%}
+                {%for m in msg%}
+                  {{m|safe}}
+                {%endfor%}
+              {%endif%}
+            {%endwith%}
+        </div>
+        <form action="{{url_for('login_security')}}" method="post" class="regform">
+                <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+          <div class="col-md-12">
+            <div class="form-floating">
+                <input type="text" class="form-control" name="uname" placeholder="Username" value="{{details.username}}" id="uname" readonly>
+                <label for="floatingInput">Username</label>
+            </div> 
+            <div class="mb-3 form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="toggleUname">
+                <label class="form-check-label" for="toggleUname">Edit Username</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" name="oldpwd" id="pwd" placeholder="Enter Password" value="">
+              <label for="floatingInput">Current Password</label>
+            </div> 
+
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" name="newpwd" id="newpwd" placeholder="Password">
+                <label for="floatingInput">New Password</label>
+            </div> 
+
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" name="cpwd" id="cpwd" placeholder="Password">
+                <label for="floatingInput">Confirm Password</label>
+            </div> 
+          </div>
+          
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="submit" class="form-control btn btn-lg hvr-hover" id="regbtn" value="Edit Profile Details">
+                </div>
+            </div>           
+        </form>
+   
+
+</div>
+</main>
+{% endblock %}
+
+{% block morescripts %}
+<script>
+    $(document).ready(function(){
+
+
+       $("#toggleUname").click(function(){
+        var clicked = $("#toggleUname").prop("checked");
+
+        if(clicked == true){
+            $("#uname").removeAttr("readonly");
+        }else{
+            $("#uname").attr("readonly", "readonly");
+        }
+       })
+      
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "site/layout.html" %}
+{% block title %}
+<title>Home - La Tienda Meridian</title>
+{% endblock %}
+
+
+    <!-- Start Cart  -->
+{% block content%}
+
+
+    <!-- Start Products  -->
+    <div class="products-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title-all text-center">
+                        <h1>All Products</h1><hr>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row special-list mb-4">
+        {% if data%}
+        {% for proditems in data %}
+        <div class="col-lg-3 col-md-6 special-grid best-seller mb-5">
+            <div class="card flex flex-wrap text-center ">
+                <div id="carouselExampleCaptions" class="carousel slide mb-3" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        
+                        {% for img in proditems.the_image %}
+                        <div class="carousel-item active">
+                            <a href="{{url_for('site_productpage',prodid=proditems.product_id)}}"><img src="{{url_for('static',filename='/productuploads/'+img.image_name)}}"alt="{{img.image_name}}" class="card-img-top" height="350vh" width="100vw"> </a>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+                <!-- <div class="mask-icon">
+                    <a class="cart" href="#">Add to Cart</a>
+                </div> -->
+                {% if proditems.quantity!=0%}
+                <div class="mask-icon1">
+                    <a class="view" href="{{url_for('site_productpage',prodid=proditems.product_id)}}">View More</a>
+                </div>                
+                <div class="mask-icon1">
+                    <button class="cart add2cart" type="button" id="add2cart">Add to Cart</button>
+                </div>
+                {%else%}
+                <div class="mask-icon1">
+                    <a class="view bg-danger" href="{{url_for('site_productpage',prodid=proditems.product_id)}}">Sold Out!</a>
+                </div>
+                {%endif%}
+            </div>
+            <div class="why-text card-body">
+                <h4>{{proditems.name.upper()}}</h4>
+                <h5 style="color:#AD343E"> &#8358; {{"{0:,.2f}".format(proditems.price)}}</h5>
+
+                <h5 id="amt">{{proditems.price}}</h5>
+                <h5 id="prodid">{{proditems.product_id}}</h5>
+                <h5 id="qty">1</h5>
+                <!-- <button id="add2cart">Add to Cart</button> -->
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+            </div>
+        </div>
+    </div>
+    <!-- End Products  -->
+   
+{% endblock %}
+
+{% block more_scripts%}
+<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+
+<script>
+    $(document).ready(function(){
+        $(".add2cart").click(function(){
+            var price = $("#amt").html();
+            var qty = 1
+            var totalAmt = $("#amt").html();
+            var prod_id = $("#prodid").html();
+
+            var data2send = "amount="+price+"&quantity="+qty+"&total="+totalAmt+"&prodid="+prod_id;
+            $.ajax({
+                url:"/meridian/addtocart",
+                data:data2send,
+                type:"GET",
+                dataType:"text",
+                beforeSend:function(){
+                    $('#add2cart').html("Added")
+                },
+                success:function(rsp){
+                    console.log(rsp)
+                    $('#add2cart').html("Add to Cart")
+                },
+                error:function(err){
+                    console.log(err)
+                }
+            })
+        })
+      
+    })
+</script>
+{%endblock%}

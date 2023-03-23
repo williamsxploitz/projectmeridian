@@ -1,0 +1,290 @@
+{% extends "site/layout.html" %}
+
+{% block title %}
+<title>Checkout - La Tienda Meridian</title>
+{% endblock %}
+
+{% block more_internal_css %}
+    
+<style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .b-example-divider {
+      height: 3rem;
+      background-color: rgba(0, 0, 0, .1);
+      border: solid rgba(0, 0, 0, .15);
+      border-width: 1px 0;
+      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+
+    .b-example-vr {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 100vh;
+    }
+
+    .bi {
+      vertical-align: -.125em;
+      fill: currentColor;
+    }
+
+    .nav-scroller {
+      position: relative;
+      z-index: 2;
+      height: 2.75rem;
+      overflow-y: hidden;
+    }
+
+    .nav-scroller .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 1rem;
+      margin-top: -1px;
+      overflow-x: auto;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
+{% endblock %}
+
+{% block morelinks %}
+<link href="{{url_for('static',filename='css/checkout.css')}}" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block content%}
+<!-- Start Cart  -->
+   
+    <!-- Custom styles for this template -->
+ 
+    
+<div class="container">
+  <main>
+    <div class="py-5 text-center">
+      <h2>Checkout form</h2>
+      
+    </div>
+
+    <div class="row g-5">
+      <div class="col-md-5 col-lg-5 order-md-last">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span style="color: #AD343E">Your cart</span>
+          <span class="badge rounded-pill" style="background-color: #AD343E;">{{mycart|count}}</span>
+        </h4>
+        <ul class="list-group mb-3">
+          
+          {% for cart in mycart %}
+          {%if cart%}
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0 orderProdName">{{cart.prod_deets.name}}</h6>
+              <p class="">
+                <span class="text-muted orderProdQty">Quantity:</span>
+                <span>{{cart.qty}} piece(s)</span><br>
+                <span class="text-muted orderProdPrice">Price:</span>
+                <span>{{"{0:,.2f}".format(cart.amount)}} each</span>
+              </p>
+            </div>
+            <span> &#8358; {{"{0:,.2f}".format(cart.total_amount)}}</span>
+            <span class=""></span>
+
+          </li>
+          {% endif %}
+          {% endfor %}
+          <li class="list-group-item d-flex justify-content-between">
+            <span class="">Shipping</span>
+            <span> &#8358; {{"{0:,.2f}".format(shipping)}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span class="">Total</span>
+            {%if cart_total[0]!=None%}
+            {%set grand_total = cart_total[0] + shipping%}
+            <span id="totAmt" style="font-weight: 700;">
+              &#8358; {{"{0:,.2f}".format(grand_total)}}
+            </span>
+            {%else%}
+            <span id="totAmt" style="font-weight: 700;">
+              &#8358; {{"{0:,.2f}".format(0 + shipping)}}
+            </span>
+              {%endif%}
+              <!-- trying to use try/except to catch TypeError -->
+          {#{%try%}          
+            <span id="totAmt" style="font-weight: 700;">
+              &#8358; {{"{0:,.2f}".format(cart_total[0] + shipping)}}
+            </span>
+          {%except TypeError%}
+            <span>{{cart_total[0]}}</span>
+          {%endtry%}#}
+          <!-- ...but that didn't work -->
+            <input type="text" id="totAmt1" value="{{grand_total}}" hidden>
+          </li><hr>
+          
+        </ul>
+          <!-- <div class="row my-5">
+                <div class="col-lg-8 col-sm-12"></div>
+                <div class="col-lg-4 col-sm-12">
+                    <div class="row order-box">
+                        <h3>Order summary</h3>
+                        <div class="col-lg-6">
+                            <h4>Sub Total</h4>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="money font-weight-bold"> &nbsp;&nbsp; &#8358; </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <h4>Discount</h4>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="me-auto font-weight-bold money"> &nbsp;&nbsp; &#8358; 40 </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <h4>Coupon Discount</h4>
+                        </div>
+                        <div class="col-lg-6">                            
+                            <div class="me-auto font-weight-bold money"> &nbsp;&nbsp; &#8358; 10 </div>
+                        </div>                     
+                        <hr class="my-1">
+                        <div class="col-lg-6">
+                            <h4>Tax</h4>
+                        </div>
+                        <div class="col-lg-6">                            
+                            <div class="me-auto font-weight-bold money"> &nbsp;&nbsp; &#8358; 10 </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <h4>Shipping Cost</h4>
+                        </div>
+                        <div class="col-lg-6">                            
+                            <div class="me-auto font-weight-bold money"> &nbsp;&nbsp; &#8358; 10 </div>
+                        </div>
+                        <hr>
+                        <div class="col-lg-6">
+                            <h4>Grand Total</h4>
+                        </div>
+                        <div class="col-lg-6">                            
+                            <div class="me-auto h5 font-weight-bold money"> &nbsp;&nbsp; &#8358; 388 </div>
+                        </div>
+                        <hr> 
+                    </div>
+                </div>
+                <div class="col-12 d-flex shopping-box"><a href="{{url_for('checkout')}}" class="ms-auto btn hvr-hover btn-warning">Checkout</a> </div>
+            </div> -->
+
+        
+      </div>
+      
+      {%for user in users%}
+      <div class="col-md-7 col-lg-7">
+        <h4 class="mb-3">Delivery Details</h4>
+          <div class="row g-3 mb-5">
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label cat-labels">* Receiver's name</label>
+              <input type="text" class="form-control" id="rname" placeholder="" value="{{user.firstname}} {{user.lastname}}" required>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="username" class="form-label cat-labels">* Phone Number</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">+234</span>
+                <input type="text" class="form-control" id="rphone" placeholder="Username" required value="{{user.phone}}">
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="email" class="form-label cat-labels">Email <span class="text-muted">(Registered)</span></label>
+              <p class="form-control" id="email">{{user.email}}</p>
+            </div>
+
+          <!-- Shipping Address  -->
+           
+            <div class="col-12 defaultAddress">
+              <label for="address" class="form-label cat-labels">* Address</label>
+              {%if user.address=="" or user.mylga.lga_name==None or user.mystate.state_name%}
+              <input type="text" class="form-control" id="address" placeholder="Your address here" required value="{{user.address}}, {{user.mylga.lga_name}}, {{user.mystate.state_name}} State." >
+              {%else%}
+              <input type="text" class="form-control" id="address" placeholder="Your address here" required value="" placeholder="Enter Delivery Address">
+              {%endif%}
+              <small>*Detailed street address can help our rider find you quickly.</small><br>
+            </div>
+
+            <div class="col-12 defaultAddress mb-5">
+              <label for="address" class="form-label cat-labels">Any Other Info <span class="text-muted">(Optional)</span></label>
+              <textarea id="additionaInfo" placeholder="Any other specific information you want us to note: like address description or special message for the reciever, or just anything!" class="form-control" maxlength="250"></textarea>  
+              <small>*Maximum of 250 characters</small><br>
+            </div>
+        </div>
+        {%endfor%}
+<!-- End Shipping Address  -->
+    
+        <hr class="my-4">
+          <hr class="my-4">         
+          <hr class="my-4">
+
+          <button class="w-100 btn hvr-hover btn-lg mb-2" id="checkoutBtn">Place Order</button>
+          <small class="mb-5 fw-bold" style="color:red;" hidden id="redirectPay">
+            If you are not automatically redirected to the payment page, please click 
+            <button class="badge btn-danger btn-sm ms-1">
+              <a href="{{url_for('confirm_checkout')}}" style="text-decoration: none; color: white;">HERE</a>
+            </button>
+          </small><hr>
+          <!-- <button class="w-100 btn hvr-hover btn-lg mb-5" type="button" id="checkoutBtn"><a href="{{url_for('confirm_checkout')}}" style="text-decoration: none; color: white;">Place Order</a></button> -->
+      </div>
+    </div>
+  </main> 
+</div>
+{% endblock %}
+
+{% block more_scripts%}
+<script>
+  $(document).ready(function(){
+    $("#checkoutBtn").click(function(){
+      var amount = $("#totAmt1").val();
+      var userid = "{{details.user_id}}";
+      var address = $("#address").val();
+      var status = "pending";
+      var receivername = $("#rname").val();
+      var receivers_phone = $("#rphone").val();
+      var addinfo = $("#additionaInfo").val();
+
+      var data2send = "amount="+amount+"&user_id="+userid+"&address="+address+"&order_status="+status+"&rname="+receivername+"&rphone="+receivers_phone+"&add_info="+addinfo
+
+      $.ajax({
+        url: "/meridian/addto_orders",
+        data: data2send,
+        type:"GET",
+        dataType:'text',
+        beforeSend:function(){
+          $("#checkoutBtn").html("Please wait...")
+          $("#checkoutBtn").attr("disabled", 'disabled')
+        },
+        success:function(rsp){
+          console.log(rsp)
+          $("#redirectPay").removeAttr("hidden")
+        },
+        error:function(err){
+          console.log(err)
+        }
+      })
+    })
+
+
+  })
+</script>
+{%endblock%}
+
+
+
+  

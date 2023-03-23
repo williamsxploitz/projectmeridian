@@ -1,0 +1,107 @@
+{% extends "admin/adminlayout.html"%}
+
+{% block title %}
+<title>Product Categories - La Tienda Meridian</title>
+{% endblock %}
+
+{% block canvas %}
+{% endblock %}
+
+{% block top_content %}
+<!-- Content -->
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h3">Products</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="/admin/products/view-products" class="btn btn-sm btn-outline-secondary">View Products</a>
+          <a href="/admin/products/view-deleted-products" class="btn btn-sm btn-outline-secondary">Deleted Products</a>
+          <a href="/admin/products/view-deleted-products-by-user" class="btn btn-sm btn-outline-secondary">Deleted by User</a>
+          <a href="/admin/products/view-deleted-products-by-admin" class="btn btn-sm btn-outline-secondary">Deleted by Admin</a>
+          <a href="/admin/products/view-pending-products" class="btn btn-sm btn-outline-secondary">Pending Approval</a>
+          <a href="/admin/products/view-products/out-of-stock" class="btn btn-sm btn-outline-secondary">Out of Stock</a>
+          <a href="/admin/products/add-products" class="btn btn-sm btn-warning">Add Products</a>
+        </div>
+    </div>
+  </div>
+  {% endblock %}
+
+{% block main_content %}
+
+<!-- Add Categories -->
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-md-12">                        
+            <h2 class="h5 text-center" style="color: #AD343E;">Add Products</h2> <hr>
+            <div class="form" method="post" action="{{url_for('add_products')}}">
+                <div class="container">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">  
+                        <div class="container">                      
+                            {% with msg =get_flashed_messages() %}
+                                {% if msg %}
+                                    {% for m in msg %}
+                                        {{ m|safe }}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}                        
+                            <div class="row mt-5">
+                                <div class="form-group mb-3 col-md-9">
+                                    <label for="" class="form-label fw-bold">Product Name</label>
+                                    <input type="text" name="prod_name" id="" class="form-control">
+                                </div>
+                                <div class="form-group mb-3 col-md-3">
+                                    <label for="" class="form-label fw-bold">Quantity Available</label>
+                                    <input type="number" name="qty" id="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="form-group mb-3 col-md-4">
+                                    <label for="" class="form-label fw-bold">Product Category</label>
+                                    <select name="prod_cat" id="" class="form-control">
+                                        <option value="">Select Category</option>
+                                        {% for cat in productcategory %}
+                                        <option value="{{cat.category_id}}">{{cat.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group mb-3 col-md-4">
+                                    <label for="" class="form-label fw-bold">Amount</label>
+                                    <input type="Number" name="amt" id="" class="form-control">
+                                </div>
+                                <div class="form-group mb-3 col-md-4">
+                                    <label for="" class="form-label fw-bold">Product SKU</label>
+                                    <input type="text" name="prod_sku" id="" class="form-control" value="{{newsku}}" hidden>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="form-group mb-3 col-md-12">
+                                    <label for="" class="form-label fw-bold">Product Description</label>
+                                    <textarea name="prod_desc" class="form-control" rows="3"></textarea>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="form-group mb-3 col-md-12">
+                                    <textarea name="postedby" class="form-control" rows="3" hidden>Posted by</textarea>
+                                </div>
+                            </div> 
+                            <div class="row mt-4">                                
+                                <div class="form-group mb-3 col-md-2 fw-bold">Upload Image(s):</div>
+                                <div class="form-group mb-3 col-md-5">
+                                    <input type="file" name="prod_img" id="" class="form-control" multiple placeholder="Upload Product Image(s)">
+                                </div>
+                                <div class="form-group mb-3 col-md-5">
+                                   <input type="submit" id="" class="form-control btn btn-warning" value="Add Product">
+                                </div>
+                                <div style="text-align: right;">Posted by: {{deets.admin_name}}</div>
+                            </div> 
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<!-- End Add Categories -->
+{% endblock %}

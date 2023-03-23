@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Site Metas -->
+    {% block title %}
+    <title>La Tienda Meridian - Buy, Sell, Swap Ecommerce Store</title>
+    {% endblock %}
+    <meta name="keywords" content="quality,goods, gadgets, meridian, gadgets in lagos, quality gadgets, premium, best price, buy, sell, swap, best, authentic">
+    <meta name="description" content="La Tienda Meridian is a one-stop gadgets store where users can buy, sell and even swap old gadgets for new ones. We have the best prices and our gadgets are premium and authentic.">
+    <meta name="author" content="Williams Xploitz">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="{{url_for('static',filename='img/meridian/favicon.ico')}}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{url_for('static', filename='img/meridian/favicon.ico')}}">
+    
+    
+
+    
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/stylez.css')}}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/responsive.css')}}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/custom.css')}}">
+	<!-- Font Awesome-->
+    <link href="{{url_for('static', filename='fawesome/css/all.css')}}" rel="stylesheet" type="text/css">
+	<!-- Animate CSS-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/animate.min.css')}}">
+    {% block morelinks %}
+    {% endblock %}
+
+    <style type="text/css">
+        .hvr-hover{
+            background-color:#F0B92D
+        }
+        .helpClass,.help-drop li a{
+            border-right: 0px solid black;
+        }
+        .help-drop:hover{
+            background-color: none !important;
+        }
+    </style>
+    {% block more_internal_css %}
+    {% endblock %}
+</head>
+
+{% block body_opening%}
+<body>
+{% endblock %}
+  
+<!-- Start Main Top -->
+{% block main_top %}
+<div class="main-top pb-0">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg col-md col-sm-12 col-xs-12  our-link">
+                <ul class="nav justify-content-end">
+                    <li class="nav-item right-phone-box" id="phon">
+                        <a href="tel:+2348136560110" class="nav-link"><span>Call Us: </span>+234 813 6560 110</a>
+                    </li>
+                    <li class="nav-item right-phone-box" id="phon">
+                        <a href="mailto:latiendameridain@gmail.com" class="nav-link">Email Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>                
+</div>
+{% endblock %}
+<!-- End Main Top -->
+
+{% block fixed_nav %}
+<!-- Start - Nav for logo, sign-in/sign-up icon, cart and search bar -->
+<div class="nav-fix">
+    <div class="container-fluid search-nav">
+        <div class="row my-3">
+            <div class="col-md-2 px-3">
+                <a href="{{url_for('home')}}"><img src="{{url_for('static', filename='img/meridian/logo2.png')}}" width="100%" alt="LOGO"></a>
+            </div>
+            <!-- Search Bar -->
+            <div class="col-md-5 pt-2 searchbar">
+                <form class="d-flex" role="search" action="/search" method="get">
+                    <input class="form-control" type="search" placeholder="Search for products, brands and categories" aria-label="Search" width="100%" style="border-radius: 20px;" name="searchinput">
+                    <button type="submit" class="btn ms-1 searchBtn">Search</button>
+                </form>
+            </div>
+            <div class="col-md-5 pt-3">
+                <ul class="nav justify-content-around" style="color: #ECE9E9;">
+                  <li class=" ms-5">
+                    {% if details%}
+                    {% if details.profile_px !='' and details.profile_px != None %}
+                    <img src="{{ url_for('static',filename='/img/uploads/'+details.profile_px)}}" alt="Profile Picture" width="40" height="40" class="rounded-circle" style="border-radius:50%">
+                    {% else %}
+                    <img src="{{ url_for('static',filename='img/avatar.png')}}" alt="Picture avatar" width="32" height="32" class="rounded-circle">
+                    {% endif%}
+                  {%else%}
+                  <img src="{{ url_for('static',filename='img/avatar.png')}}" alt="Picture avatar" width="40" height="40" class="rounded-circle">
+                  {% endif %}
+                    <!-- <img src="{{url_for('static', filename='/img/avatar.png')}}" width="40" height="40" alt="" style="border-radius: 50%;"> -->
+                    <span style="color: #1E1014;">
+                        {% block session_name %}
+                        {% if session.get('user') != None %}
+                        Hi, <a href="{{url_for('user_account')}}"  class="logo-nav-link me-4" style="color:#AD343E; font-weight: 700;">
+                            {{ details.username.upper()}}
+                        </a>
+                        <a href="{{url_for('user_logout')}}"  class="logo-nav-link btn btn-dark btn-sm">
+                            logout
+                        </a>
+                        {% else %}
+                        <a href="{{url_for('user_signup')}}"  class="logo-nav-link">
+                            login/register
+                        </a>
+                    </span>                  
+                    {% endif %}
+                    {% endblock %}
+                        
+                  </li>
+                  <li>
+                    <a href="{{url_for('cart')}}" class="fa-solid fa-cart-shopping ms-3  position-relative logo-nav-link" style="font-size: 26px;">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px;" id="cart_no">{{mycart|count}}</span>
+                    </a>
+                    </li>
+                </ul>
+            </div>
+        </div>             
+    </div>
+{% endblock %}
+<!-- End - Nav for logo, sign-in/sign-up icon, cart and search bar -->
+
+{% block navbar %}
+<!--Start Navbar -->
+<div class="container-fluid px-0" style="margin-top: -2%; margin-bottom: -1%;">
+    <div class="row text-center">
+        <div class="col-lg col-md col-sm-12 col-xs-12">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid navitems">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-5">
+                        <li class="nav-item dropdown">   
+                           <a class="nav-link droplink nav-link all-cat" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                All Categories &nbsp;
+                             <i class="fa-solid fa-bars me-4" style="color: #F0B92D !important;"></i>                             
+                           </a>
+                           <ul class="dropdown-menu help-drop">
+                        {% for cat in productcategory %}
+                            <li><a href="{{url_for('product_categorypage',cartid=cat.category_id)}}" class="dropdown-item"> {{cat.name}}</a></li>
+                        {% endfor %}
+                        </ul>
+                        </li>
+                    </ul>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-5">
+                        <li class="nav-item mx-2">
+                            <a class="nav-link" href="{{url_for('all_ourproducts')}}" style="color:#AD343E !important; background-color: #ECE9E9; border: 1px solid #1E1014; border-radius: 10%;"><strong>All Products</strong></a>
+                        </li>
+                      <li class="nav-item mx-2">
+                        <a class="nav-link active" aria-current="page" href="{{url_for('user_account')}}">My Account</a>
+                    </li>
+                    {%if details%}
+                    {%if details.sell_status=='cansell'%}
+                    <li class="nav-item mx-2">
+                        <a class="nav-link active" aria-current="page" href="{{url_for('upload')}}">Sell</a>
+                    </li>
+                    {%else%}
+                    <li></li>
+                    {%endif%}
+                    {%endif%}
+                      <li class="nav-item dropdown mx-2">
+                        <a class="nav-link dropdown-toggle droplink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Shop
+                        </a>
+                        <ul class="dropdown-menu help-drop">
+                            <li><a href="{{url_for('cart')}}" class="dropdown-item"> Cart</a></li>
+                            {%if (mycart|count) !=0%}
+                            <li><a href="{{url_for('checkout')}}" class="dropdown-item"> Checkout</a></li>
+                            {%else%}
+                            <li><a href="{{url_for('cart')}}" class="dropdown-item"> Checkout</a></li>
+                            {%endif%}
+                            <li><a href="{{url_for('user_account')}}" class="dropdown-item"> My Account</a></li>
+                            <li><a href="#" class="dropdown-item"> Shop Detail</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown mx-2" id="top-drop">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #ECE9E9;">
+                          Help
+                        </a>
+                        <ul class="dropdown-menu help-drop">
+                          <li class="helpClass"><a class="dropdown-item" href="#">Help Centre</a></li>
+                          <li class="helpClass"><a class="dropdown-item" href="#">FAQs</a></li>
+                          <li class="helpClass"><a class="dropdown-item" href="#">Place & Track Order</a></li>
+                          <li class="helpClass"><a class="dropdown-item" href="{{url_for('user_account')}}">Order Cancellation</a></li>
+                          <li class="helpClass"><a class="dropdown-item" href="{{url_for('user_account')}}">Returns and Refunds</a></li>
+                        </ul>
+                      </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="{{url_for('contact_us')}}">Contact Us</a>
+                    </li>
+                    </ul>                    
+                  </div>
+                </div>
+              </nav>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+<!-- End Navbar -->
+
+<!-- Registration Form  Start-->
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-7"style="border-right: #AD343E solid 2px;">
+            <div class="row my-5">
+                <div class="col-md-12">
+        <h2 style="text-align: center;">Create an Account</h2>
+                </div>
+            </div>
+            <form action="my-account.html" method="post" class="regform">
+                <div class="row my-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="fname" class="form-label mb-1 cat-labels">First Name</label>
+                            <input type="text" class="form-control" name="fname" id="fname" placeholder="Enter Last Name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="lname" class="form-label mb-1 cat-labels">Last Name</label>
+                            <input type="text" class="form-control" name="lname" id="lname" placeholder="Enter First Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            <label for="email" class="form-label mb-1 cat-labels">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter First Name" required>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="ppix" class="form-label mb-1 cat-labels">Profile Picture</label>
+                            <span class="cat-label-span"> (optional)</span>
+                            <input type="file" class="form-control" name="ppix" id="ppix" placeholder="Profile Picture">
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="uname" class="form-label mb-1 cat-labels">Username</label>
+                            <input type="text" class="form-control" name="uname" id="uname" placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="pwd" class="form-label mb-1 cat-labels">Password</label>
+                            <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Password">
+                        </div>
+                    </div>
+                </div>  
+                
+                <div class="row my-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="phone" class="form-label mb-1 cat-labels">Phone Number</label>
+                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone Number">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="country" class="form-label mb-1 cat-labels">Country</label>
+                            <input type="text" class="form-control" name="country" id="country" placeholder="Nigeria" readonly>
+                        </div>
+                    </div>
+                </div>  
+                <div class="row my-4">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="add" class="form-label mb-1 cat-labels">Address Line</label>
+                            <input type="text" class="form-control" name="add" id="add" placeholder="Enter Address" required>
+                        </div>
+                    </div> 
+                </div>
+                <div class="row my-4">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="control-label form-label mb-1 cat-labels">
+                                    State of Origin
+                                </label>
+                                <select onchange="toggleLGA(this);" name="state" id="state" class="form-control">
+                                    <option value="" selected="selected">- Select -</option>
+                                    <option value="Abia">Abia</option>
+                                    <option value="Adamawa">Adamawa</option>
+                                    <option value="AkwaIbom">AkwaIbom</option>
+                                    <option value="Anambra">Anambra</option>
+                                    <option value="Bauchi">Bauchi</option>
+                                    <option value="Bayelsa">Bayelsa</option>
+                                    <option value="Benue">Benue</option>
+                                    <option value="Borno">Borno</option>
+                                    <option value="Cross River">Cross River</option>
+                                    <option value="Delta">Delta</option>
+                                    <option value="Ebonyi">Ebonyi</option>
+                                    <option value="Edo">Edo</option>
+                                    <option value="Ekiti">Ekiti</option>
+                                    <option value="Enugu">Enugu</option>
+                                    <option value="FCT">FCT</option>
+                                    <option value="Gombe">Gombe</option>
+                                    <option value="Imo">Imo</option>
+                                    <option value="Jigawa">Jigawa</option>
+                                    <option value="Kaduna">Kaduna</option>
+                                    <option value="Kano">Kano</option>
+                                    <option value="Katsina">Katsina</option>
+                                    <option value="Kebbi">Kebbi</option>
+                                    <option value="Kogi">Kogi</option>
+                                    <option value="Kwara">Kwara</option>
+                                    <option value="Lagos">Lagos</option>
+                                    <option value="Nasarawa">Nasarawa</option>
+                                    <option value="Niger">Niger</option>
+                                    <option value="Ogun">Ogun</option>
+                                    <option value="Ondo">Ondo</option>
+                                    <option value="Osun">Osun</option>
+                                    <option value="Oyo">Oyo</option>
+                                    <option value="Plateau">Plateau</option>
+                                    <option value="Rivers">Rivers</option>
+                                    <option value="Sokoto">Sokoto</option>
+                                    <option value="Taraba">Taraba</option>
+                                    <option value="Yobe">Yobe</option>
+                                    <option value="Zamfara">Zamafara</option>
+                                </select>
+                            </div>
+                            <div class="form-group my-3">
+                                <label class="control-label mb-1 cat-labels">LGA of Origin</label>
+                                <select name="lga" id="lga" class="form-control select-lga" required>
+                                </select>
+                            </div>
+                        </div>                            
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="submit" class="form-control btn btn-warning btn-lg" name="regbtn" id="regbtn" value="Create Account" disabled>
+                    </div>
+                </div>           
+            </form>
+        </div>
+        <div class="col-md-5 my-5">
+            
+            <div class="row my-5" style="margin-top: -50%;">
+                <div class="col-md-12 mt-5">
+                    <h3 style="text-align: center; margin-top: 30%;">Already have an account? Login</h3>
+                    
+                <form action="my-account.html" method="post" class="loginform">
+                    <div class="row my-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="loginUname" class="form-label mb-1 cat-labels">Username</label>
+                                <input type="text" class="form-control" name="loginUname" id="loginUname" placeholder="Enter Username">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="loginPwd" class="form-label mb-1 cat-labels">Password</label>
+                                <input type="password" class="form-control" name="loginPwd" id="loginPwd" placeholder="Enter Password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="submit" class="form-control btn btn-warning btn-lg" name="loginbtn" id="loginbtn" value="Login" disabled>
+                        </div>
+                    </div>    
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+<!-- Registration Form End  -->
+
+
+
+
+{% block footer %}
+<!-- Start Footer  -->
+<footer>
+    <div class="footer-main">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-md-2">
+                    <h6 style="color: #ECE9E9 !important;">EMAIL SUPPORT</h6>
+                    <a style="font-size: 12px; color: #F0B92D; text-decoration: none;" href="mailto:support@latiendameridian.com">support@latiendameridian.com</a>
+                </div>
+                <div class="col-md-2">
+                    <h6 style="color: #ECE9E9 !important;">PHONE SUPPORT</h6>
+                    <a style="font-size: 12px; color: #F0B92D; text-decoration: none;" href="tel:+23415930131" target="_blank">+234-901-593-0131</a>
+                </div>
+                <div class="col-md-2">
+                    <h6 style="color: #ECE9E9 !important;">WHATSAPP</h6>
+                    <a style="font-size: 12px; color: #F0B92D; text-decoration: none;" href="https://wa.me/+2348136560110">+234-813-656-0110</a>
+                </div>
+                <div class="col-md-2">
+                    <p style="font-size: 12px; color: #ECE9E9;">Subscribe to our newsletter to get updates on our latest offers!</p>
+                </div>
+                    <!-- Search Bar -->
+                <div class="col-md-4 pt-2 mb-5">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Email Address" aria-label="Search" width="100%" style="border-radius: 20px;">
+                        <button type="button" class="btn searchBtn">Subscribe</button>
+                    </form>
+                </div>
+                </div>
+            </div>
+            <div class="row mx-5">
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="footer-widget">
+                        <h4>About La Tienda Meridian</h4>
+                        <p>We founded this business with one goal in mind: providing a high-quality, smart, and reliable online store. Our passion for excellence has driven us from the beginning and continues to drive us into the future. We know that every product counts, and strive to make the entire shopping experience as rewarding as possible. Check it out for yourself! <a href="/meridian/about" style="color: #F0B92D;text-decoration: none;">more...</a>
+                            </p>
+                            <ul>
+                                <li><a href="https://wa.me/+2348136560110" target="_blank"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
+                                <li><a href="https://www.facebook.com/themeridianstore" target="_blank"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="https://www.twitter.com/d_meridianstore" target="_blank"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                                <li><a href="https://instagram.com/the_meridianstore" target="_blank"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                                <li><a href="https://www.linkedin.com/company/themeridianstore" target="_blank"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                                <li><a href="https://www.youtube.com/channel/UCRid-iY5ae7ZuqcrzTaPObQ/" target="_blank"><i class="fab fa-square-youtube" aria-hidden="true"></i></a></li>
+                                <li><a href="tel:+2349015930131"><i class="fa-solid fa-phone" aria-hidden="true"></i></a></li>
+                            </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="footer-link">
+                        <h4>Information</h4>
+                        <ul>
+                            <li><a href="/meridian/about">About Us</a></li>
+                            <li><a href="#">Track My order Us</a></li>
+                            <li><a href="#">Sell on Meridian</a></li>
+                            <li><a href="#">FAQs</a></li>
+                            <li><a href="#">Terms &amp; Conditions</a></li>
+                            <li><a href="#">Shipping &amp; Returns</a></li>
+                            <li><a href="#">Payment Methods</a></li>
+                            <li><a href="#">Help Centre</a></li>
+                            <li><a href="#">Delivery Options &amp; Timeline</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="footer-link-contact">
+                        <h4>Contact Us</h4>
+                        <ul>
+                            <li>
+                                <p><i class="fas fa-map-marker-alt"></i>Address: School of Transport, <br>Lagos State University, Ojo<br> 102101 Lagos. </p>
+                            </li>
+                            <li>
+                                <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:+2348136560110">+234-813-6560-110</a></p>
+                            </li>
+                            <li>
+                                <p><i class="fas fa-envelope"></i>Email: <a href="mailto:latiendameridian@gmail.com">latiendameridian@gmail.com</a></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer  -->
+{% endblock %}
+
+    <!-- Start copyright  -->
+    <div class="footer-copyright">
+        <p class="footer-company">All Rights Reserved. &copy; 2023 <a href="#">La Tienda Meridian</a>
+    </div>
+    <!-- End copyright  -->
+
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+<script src="{{url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js')}}" type='text/javascript'></script>
+<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+
+{% block more_scripts%}
+{%endblock%}
+
+{% block lga_scripts %}
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+{% extends "site/layout.html" %}
+{% block title %}
+<title>My Account - La Tienda Meridian</title>
+{% endblock %}
+
+
+    <!-- Start Cart  -->
+{% block content%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 my-5" style="border: 2px solid #AD343E;">
+            <h3 style="text-decoration: underline;" class=" text-center mt-5">Order Confirmation</h3>
+            <div style="font-size: 18px;">
+                <p>Hello <b class="text-success">{{details.username.upper()}},</b></p>
+                <p>
+                    This is to confirm that your payment of <b style="color:#AD343E">&#8358;{{"{0:,.2f}".format(orderby.amount)}}</b>
+                    for your order with Reference Number: <b style="color:#AD343E">{{refno}}</b>, made on 
+                    <b style="color:#AD343E">{{orderby.date}}</b> was <b>successful</b>, and your order has been 
+                    <b>received</b>.
+                </p>
+                <p class="mb-5">Someone from our dispatch team would reach out to you, and your item(s) would be delivered <b> between 3-5 Business Days,</b></p>
+                <p>Thank you for shopping with us! <a href="{{url_for('order_details', deetsid=id)}}">Follow this link</a> to view your order</p>
+                
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+{% endblock %}

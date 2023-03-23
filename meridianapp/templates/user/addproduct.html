@@ -1,0 +1,139 @@
+{% extends "user/profile-layout.html" %}
+
+{% block Pagetitle %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12">            
+            <p style="font-size: 10px;">
+                <span><a href="#" class="sidelink">Home > &nbsp;</a></span>
+                <span><a href="#" class="sidelink">My Account > &nbsp;</a></span>
+                <span><a href="#" class="sidelink" style="color:#AD343E !important">Profile &nbsp;</a></span>
+                <span></span>
+                <span></span>
+            </p>
+        </div>
+        <div class="col-md-12">            
+            <h4 style="letter-spacing: 10px; word-spacing: 10px;">MY PROFILE</h4>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- Page Title and link string -->
+
+
+
+
+      <!-- End sidebar -->
+{% block maincontent %}
+      <!-- Content -->
+      <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4" style="background-color:rgb(245, 242, 242);">
+        <div class="btn-toolbar my-5 mb-md-0" style="float:right">
+          <div class="btn-group me-2">
+            <a href="/meridian/products/view-products/" class="btn btn-sm btn-outline-secondary">View Products</a>
+            <a href="/meridian/products/view-deleted-products/" class="btn btn-sm btn-outline-secondary">Deleted Products</a>
+            <a href="/meridian/products/view-pending-products/" class="btn btn-sm btn-outline-secondary">Pending Approval</a>
+            <a href="{{url_for('upload')}}" class="btn btn-sm btn-warning">Add Products</a>
+          </div>
+      </div><br><br>
+      <div>
+        <h2 class="h3 text-center mt-5" style="color:#AD343E; clear:both">Add Products</h2> <hr>
+      </div>
+        <form action="{{url_for('upload')}}" method="post" class="regform" enctype="multipart/form-data">
+          <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+          <div class="row">
+                <div class="col-md-12">
+                    <div class="container-fluid">
+                        <div class="container">                      
+                            {% with msg =get_flashed_messages() %}
+                                {% if msg %}
+                                    {% for m in msg %}
+                                        {{ m|safe }}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}                   
+                            <div class="row">
+                                <div class="form-group mb-3 col-md-9">
+                                    <label for="" class="form-label fw-bold">Product Name</label>
+                                    <input type="text" name="prod_name" id="" class="form-control">
+                                </div>
+                                <div class="form-group mb-3 col-md-3">
+                                    <label for="" class="form-label fw-bold">Quantity</label>
+                                    <input type="number" name="qty" id="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="form-group mb-3 col-md-4">
+                                    <label for="" class="form-label fw-bold">Product Category</label>
+                                    <select name="prod_cat" id="" class="form-control">
+                                        <option value="">Select Category</option>
+                                        {% for cat in productcategory %}
+                                        <option value="{{cat.category_id}}">{{cat.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group mb-3 col-md-4">
+                                    <label for="" class="form-label fw-bold">Amount</label>
+                                    <input type="Number" name="amt" id="" class="form-control">
+                                </div>
+                                <div class="form-group mb-3 col-md-4" hidden>
+                                    <label for="" class="form-label fw-bold">Product SKU</label>
+                                    <input type="text" name="prod_sku" id="" class="form-control" value="{{newsku}}" readonly>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="form-group mb-3 col-md-12">
+                                    <label for="" class="form-label fw-bold">Product Description</label>
+                                    <textarea name="prod_desc" class="form-control" rows="3" id="summernote"></textarea>
+                                </div>
+                            </div> 
+                            <div class="row">
+                              <div class="form-group mb-3 col-md-12">
+                                  <textarea name="postedby" class="form-control" rows="3" hidden>Posted by</textarea>
+                              </div>
+                          </div> 
+                            <div class="row mt-4">                                
+                                <div class="form-group mb-3 col-md-2 fw-bold">Upload Image(s):</div>
+                                <div class="form-group mb-3 col-md-5">
+                                    <input type="file" name="prod_img" id="" class="form-control" multiple placeholder="Upload Product Image(s)">
+                                </div>
+                                <div class="form-group mb-3 col-md-5">
+                                    <input type="submit" id="" class="form-control btn btn-warning" value="Add Product">
+                                </div>
+                                <div style="text-align: right;">Posted by: {{details.username}}</div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>         
+        </form>
+    </main>
+{% endblock %}
+
+{% block morescripts %}
+<script>
+  $(document).ready(function(){
+
+    $('#summernote').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 120,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+      });
+  })
+
+</script>
+{% endblock %}
+
+{% block morelinks %}
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+{% endblock %}

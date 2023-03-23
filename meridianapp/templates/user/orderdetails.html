@@ -1,0 +1,100 @@
+{% extends "user/profile-layout.html" %}
+
+{% block Pagetitle %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12">            
+            <p style="font-size: 10px;">
+                <span><a href="#" class="sidelink">Home > &nbsp;</a></span>
+                <span><a href="#" class="sidelink">My Account > &nbsp;</a></span>
+                <span><a href="#" class="sidelink" style="color:#AD343E !important">Profile &nbsp;</a></span>
+                <span></span>
+                <span></span>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- Page Title and link string -->
+
+{% block session_name %}
+{% if session.get('user') != None %}
+Hi, <a href="{{url_for('user_account')}}"  class="logo-nav-link me-4" style="color:#AD343E; font-weight: 700;">
+    {{ details.username.upper()}}
+</a>
+<a href="{{url_for('user_logout')}}"  class="logo-nav-link btn btn-dark btn-sm">
+    logout
+</a>
+{% else %}
+<a href="{{url_for('user_signup')}}"  class="logo-nav-link">
+    login/register
+</a>
+</span>
+
+  {% endif %}
+  {% endblock %}
+
+{% block maincontent %}
+      <!-- Content -->
+      <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4" style="background-color:rgb(245, 242, 242);">
+          <h2 class="h3 text-center mt-2" style="color:#AD343E;">My Orders</h2> <hr>
+          <div class="row">
+            <p class="fw-bold h5 text-decoration-underline text-center">Order Reference No.: <span style="color:#AD343E;">#{{deetsorderref.theorder.ref_no}} </span></p>
+<!-- Start View Categories -->
+<div class="table-responsive">
+    <table class="table table-striped table-sm b">
+      <thead>
+        <tr>
+          <th scope="col">S/N</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%if deetsid%}
+          {%for orderdeets in deetsid%}
+        <tr style="vertical-align: middle;">
+              <td>{{loop.index}}</td>
+              <td>{{orderdeets.theproduct.name}}</td>
+              <td>&#8358;{{"{0:,.2f}".format(orderdeets.amount)}}</td>
+              <td>{{orderdeets.qty}}</td>
+              <td>&#8358;{{"{0:,.2f}".format(orderdeets.qty*orderdeets.amount)}}</td>
+        </tr>
+        {%endfor%}
+        
+
+        {%else%}<p class="alert alert-danger">Nothing to see</p>
+      {%endif%}
+        
+          {% with m = get_flashed_messages()%}
+            {% if m %}
+              {% for msg in m%}
+                {{msg|safe}}
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+
+        
+
+    </tbody>
+</table>
+  <div>
+    <p class="alert alert-primary">The shipping fee of <b>&#8358;2,000.00</b> is being added to the calculation.</p>
+  </div>
+<!-- End View Categories -->
+
+        </div>
+   
+
+</main>
+{% endblock %}
+
+{% block morescripts %}
+<script>
+    $(document).ready(function(){
+
+    })
+</script>
+{% endblock %}

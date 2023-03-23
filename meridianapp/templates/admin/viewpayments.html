@@ -1,0 +1,62 @@
+{% extends "admin/adminlayout.html"%}
+
+{% block title %}
+<title>Product Categories - La Tienda Meridian</title>
+{% endblock %}
+
+{% block canvas %}
+{% endblock %}
+
+{% block top_content %}
+<!-- Content -->
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h3">Payments</h1>
+  </div>
+  {% endblock %}
+
+{% block main_content %}
+<!-- Start View Categories -->
+<h2 class="h3 mt-4 text-center" style="color:#AD343E;">View Order Payments</h2> <hr>
+{% with m = get_flashed_messages()%}
+  {% if m %}
+    {% for msg in m%}
+      {{msg|safe}}
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<div class="table-responsive">
+    <table class="table table-striped table-sm b">
+      <thead>
+        <tr>
+          <th scope="col">S/N</th>
+          <th scope="col">Payment Ref</th>
+          <th scope="col">Order ID</th>
+          <th scope="col">Order Amount</th>
+          <th scope="col">Payment Status</th>
+          <th scope="col">Payment Date</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if payments %}
+        {% for pays in payments %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td><strong>{{pays.pay_ref}}</strong></td>
+          <td>{{pays.order_id}}</td>
+          <td>{{pays.order_payedfor.amount}}</td>
+          <td>{{pays.status}}</td>
+          <td>{{pays.created_at}}</td>
+          <td style="font-size: 14px;">
+            <a href="/admin/payments/payment-details/{{pays.payment_id}}" class="btn btn-warning">View Order</a>
+          </td>
+        </tr>
+        {% endfor %}
+        {%endif%}
+
+    </tbody>
+</table>
+<!-- End View Categories -->
+
+{% endblock %}

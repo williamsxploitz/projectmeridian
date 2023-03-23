@@ -1,0 +1,111 @@
+{% extends "user/profile-layout.html" %}
+
+{% block Pagetitle %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12">            
+            <p style="font-size: 10px;">
+                <span><a href="#" class="sidelink">Home > &nbsp;</a></span>
+                <span><a href="#" class="sidelink">My Account > &nbsp;</a></span>
+                <span><a href="#" class="sidelink" style="color:#AD343E !important">Profile &nbsp;</a></span>
+                <span></span>
+                <span></span>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- Page Title and link string -->
+
+{% block session_name %}
+{% if session.get('user') != None %}
+Hi, <a href="{{url_for('user_account')}}"  class="logo-nav-link me-4" style="color:#AD343E; font-weight: 700;">
+    {{ details.username.upper()}}
+</a>
+<a href="{{url_for('user_logout')}}"  class="logo-nav-link btn btn-dark btn-sm">
+    logout
+</a>
+{% else %}
+<a href="{{url_for('user_signup')}}"  class="logo-nav-link">
+    login/register
+</a>
+</span>
+
+  {% endif %}
+  {% endblock %}
+
+{% block maincontent %}
+      <!-- Content -->
+      <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4" style="background-color:rgb(245, 242, 242);">
+          <h2 class="h3 text-center mt-2" style="color:#AD343E;">My Orders</h2> <hr>
+          <div class="row">
+            
+<!-- Start View Categories -->
+<div class="table-responsive">
+    <table class="table table-striped table-sm b">
+      <thead>
+        <tr>
+          <th scope="col">S/N</th>
+          <th scope="col">Reference</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Status</th>
+          <th scope="col">Date</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if myorders %}
+        {% for myorder in myorders %}
+        <tr style="vertical-align: middle;">
+          <td>#{{ loop.index }}</td>
+          <td>{{myorder.ref_no}}</td>
+          <td>{{"{0:,.2f}".format(myorder.amount)}}</td>
+          <td>
+            {% if myorder.status == 'completed'%}
+             <span class="badge bg-success">Completed</span>
+            {%elif myorder.status == 'failed'%}
+            <span class="badge bg-danger">Failed</span>
+            {%elif myorder.status == 'processing'%}
+            <span class="badge bg-warning">Processing</span>
+             {%elif myorder.status == 'pending'%}
+            <span class="badge bg-info">Pending</span>
+            {%endif%}
+          </td>
+          <td>{{myorder.date}}</td>
+          
+          <td style="font-size: 14px;">
+            <a href="/meridian/order/order-details/{{myorder.order_id}}" class="btn hvr-hover" style="font-size: 12px;">
+                View Order
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+        {%else%}
+          {% with m = get_flashed_messages()%}
+            {% if m %}
+              {% for msg in m%}
+                {{msg|safe}}
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        {% endif %}
+
+        
+
+    </tbody>
+</table>
+<!-- End View Categories -->
+
+        </div>
+   
+
+</main>
+{% endblock %}
+
+{% block morescripts %}
+<script>
+    $(document).ready(function(){
+
+    })
+</script>
+{% endblock %}

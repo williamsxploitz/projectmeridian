@@ -1,0 +1,183 @@
+{% extends "user/profile-layout.html" %}
+
+{% block Pagetitle %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12">            
+            <p style="font-size: 10px;">
+                <span><a href="#" class="sidelink">Home > &nbsp;</a></span>
+                <span><a href="#" class="sidelink">My Account > &nbsp;</a></span>
+                <span><a href="#" class="sidelink" style="color:#AD343E !important">Profile &nbsp;</a></span>
+                <span></span>
+                <span></span>
+            </p>
+        </div>
+        <div class="col-md-12">            
+            <h4 style="letter-spacing: 10px; word-spacing: 10px;">Product Categories</h4>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- Page Title and link string -->
+
+{% block session_name %}
+{% if session.get('user') != None %}
+Hi, <a href="{{url_for('user_account')}}"  class="logo-nav-link me-4" style="color:#AD343E; font-weight: 700;">
+    {{ details.username.upper()}}
+</a>
+<a href="{{url_for('user_logout')}}"  class="logo-nav-link btn btn-dark btn-sm">
+    logout
+</a>
+{% else %}
+<a href="{{url_for('user_signup')}}"  class="logo-nav-link">
+    login/register
+</a>
+</span>
+
+  {% endif %}
+  {% endblock %}
+
+
+        {% block sidebar %}
+        <nav id="sidebarMenu" class="col-md-3 col-lg-3 ge-3 d-md-block sidebar collapse ps-3" style="background-color: rgb(247, 247, 241);">
+        <div class="position-sticky pt-3 sidebar-sticky">
+            <span class="sidelink" style="color:#AD343E;font-weight: 800;">
+                <span data-feather="home" class="align-text-bottom"></span>
+                Product Categories
+            </span>
+            <ul class="nav flex-column p-4"><hr>
+            <li class="nav-item">
+                <span class="sidelink" style="color:#AD343E !important;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: 20px;">
+                <span data-feather="home" class="align-text-bottom"></span>
+                All Products
+                </span>
+                </li><hr>
+            {% for category in prod_cat%}
+            <li class="nav-item">
+                <span class="sidelink" style="color:#AD343E;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: 18px;">
+                <span data-feather="home" class="align-text-bottom"></span>
+                {{category.name}}
+                </span>
+              </li><hr>
+            {% endfor %}
+           </ul>
+        </div>
+      </nav>
+      {% endblock %}
+      <!-- End sidebar -->
+{% block maincontent %}
+      <!-- Content -->
+      <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4" style="background-color:rgb(245, 242, 242);">
+          <h2 class="h4 text-center mt-2" style="color:#AD343E;">Products</h2> <hr>
+          <div class="row special-list mb-4">
+                {% if prod %}
+                {% for proditems in prod %}
+                <div class="col-lg-4 col-md-6 col-sm-6 special-grid best-seller mb-5">
+                    <div class="card flex flex-wrap text-center ">
+                        
+                        <div class="my-2">
+                            <button class="add-cart" href="#" style="float:left; ">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Add to Cart
+                            </button>
+                            <a  href="{{url_for('site_productpage',prodid=proditems.product_id)}}">
+                                <button class="add-cart" style="float:right;"><i class="fa-regular fa-eye"></i>
+                                    View More
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="why-text card-body">
+                        <h4>{{proditems.name}}</h4>
+                        <h5> &#8358; {{proditems.price}}</h5>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+          </div>
+   
+
+</div>
+</main>
+{% endblock %}
+
+{% block morescripts %}
+<script>
+    $(document).ready(function(){
+
+      $("#state").change(function(){
+          var stateid = $(this).val()
+          $.ajax({
+              type:"GET",
+              URL:"/load_lga"+stateid,
+              success:function(resp){
+                  $("#mylga").html(resp)
+                  console.log(resp)
+              }
+          })
+        })
+
+        $("#toggleEmail").click(function(){
+        var clicked = $("#toggleEmail").prop("checked");
+
+        if(clicked == true){
+            $("#email").removeAttr("readonly");
+        }else{
+            $("#email").attr("readonly", "readonly");
+        }
+       })
+
+       $("#toggleUname").click(function(){
+        var clicked = $("#toggleUname").prop("checked");
+
+        if(clicked == true){
+            $("#uname").removeAttr("readonly");
+        }else{
+            $("#uname").attr("readonly", "readonly");
+        }
+       })
+
+       $("#togglePhone").click(function(){
+        var clicked = $("#togglePhone").prop("checked");
+
+        if(clicked == true){
+            $("#phone").removeAttr("readonly");
+        }else{
+            $("#phone").attr("readonly", "readonly");
+        }
+       })
+
+       $("#toggleFname").click(function(){
+        var clicked = $("#toggleFname").prop("checked");
+
+        if(clicked == true){
+            $("#fname").removeAttr("readonly");
+        }else{
+            $("#fname").attr("readonly", "readonly");
+        }
+       })
+
+       $("#toggleLname").click(function(){
+        var clicked = $("#toggleLname").prop("checked");
+
+        if(clicked == true){
+            $("#lname").removeAttr("readonly");
+        }else{
+            $("#lname").attr("readonly", "readonly");
+        }
+       })
+
+       $("#toggleAdd").click(function(){
+        var clicked = $("#toggleAdd").prop("checked");
+
+        if(clicked == true){
+            $("#add").removeAttr("readonly");
+        }else{
+            $("#add").attr("readonly", "readonly");
+        }
+       })
+
+      
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "site/layout.html" %}
+{% block title %}
+<title>{{data.name}} - La Tienda Meridian</title>
+{% endblock %}
+
+
+    <!-- Start Cart  -->
+{% block content%}
+
+<!-- Start Upload Product Form -->
+<div class="container mb-5">
+    <div class="row mt-5">
+        {{prod_result}}
+        <div class="col-md-12">
+            {% if query_result %}
+                <div class="row g-3">
+                    <div class="col-md-12 text-center">
+                        <h5>Product search results for <span style="color:#AD343E">{{searchinput.upper()}}...</span></h5>
+                    </div>
+                 {% for prod,cat in query_result %}
+                 <div class="col-lg-3 col-md-6 special-grid best-seller mb-5">
+                    <div class="card flex flex-wrap text-center ">
+                        <div id="carouselExampleCaptions" class="carousel slide mb-3" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                {% for img in prod.the_image %}
+                                <div class="carousel-item active">
+                                    <a href="{{url_for('site_productpage',prodid=prod.product_id)}}"><img src="{{url_for('static',filename='/productuploads/'+img.image_name)}}"alt="{{img.image_name}}" class="card-img-top" height="350vh" width="100vw"> </a>
+                                </div>
+                                {%endfor%}
+                            </div>
+                        </div>
+                        <div class="mask-icon">
+                            <a class="cart" href="#">Add to Cart</a>
+                        </div>
+                        <div class="mask-icon1">
+                            <a class="view" href="{{url_for('site_productpage',prodid=prod.product_id)}}">View More</a>
+                        </div>
+                    </div>
+                    <div class="why-text card-body">
+                        <h4>{{prod.name.upper()}}</h4>
+                        <h5 style="color:#AD343E"> &#8358; {{"{0:,.2f}".format(prod.price)}}</h5>
+                    </div>
+                </div>
+                 {%endfor%}
+                </div>
+            {%else%}
+                <div>
+                    <h5 class="alert text-danger alert-warning text-center">
+                        No results found for <span style="color:#000">{{searchinput.upper()}}...</span>; please check your spellings or rephrase.
+                    </h5>
+                </div>
+            {%endif%}
+        </div>       
+    </div>
+</div>
+
+<!-- End Upload Product Form -->
+
+{% endblock %}
+{% block more_scripts%}
+
+<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+<script>
+    $(document).ready(function(){
+       
+    })
+</script>
+{%endblock%}
+
+
+

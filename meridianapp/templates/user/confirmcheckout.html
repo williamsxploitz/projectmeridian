@@ -1,0 +1,174 @@
+{% extends "site/layout.html" %}
+
+{% block title %}
+<title>Checkout - La Tienda Meridian</title>
+{% endblock %}
+
+{% block more_internal_css %}
+    
+<style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .b-example-divider {
+      height: 3rem;
+      background-color: rgba(0, 0, 0, .1);
+      border: solid rgba(0, 0, 0, .15);
+      border-width: 1px 0;
+      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+
+    .b-example-vr {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 100vh;
+    }
+
+    .bi {
+      vertical-align: -.125em;
+      fill: currentColor;
+    }
+
+    .nav-scroller {
+      position: relative;
+      z-index: 2;
+      height: 2.75rem;
+      overflow-y: hidden;
+    }
+
+    .nav-scroller .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 1rem;
+      margin-top: -1px;
+      overflow-x: auto;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
+{% endblock %}
+
+{% block morelinks %}
+<link href="{{url_for('static',filename='css/checkout.css')}}" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block content%}
+<!-- Start Cart  -->
+   
+    <!-- Custom styles for this template -->
+ 
+    
+<div class="container">
+  <main>
+    <div class="py-5 text-center">
+      <h2>Order Details</h2>      
+    </div>
+    <div class="row mt3">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">         
+        <p class="h5">Please confirm your payment details as follows:</p>
+          <p>Full Name: {{orderby.user_deets.firstname}} {{orderby.user_deets.lastname}}</p>
+          <p>Amount: &#8358; {{"{0:,.2f}".format(orderby.amount)}}</p>
+          <p>Address: {{orderby.address}}</p>
+          <p>Email: {{orderby.user_deets.email}}</p>
+        <p>Reference Number:
+          <strong style="color:red"> {{refno}}</strong>
+          <br><small style="color:red">This number would be used to track your order and for reference purposes</small>
+        </p>
+        <form method="post" action="/meridian/checkout-details">
+          <input type="hidden" name="csrf_token" value="{{csrf_token()}}">  
+          <div class="row">
+            <div class="col-md-6">      
+          <input type="hidden" name="csrf_token" value="{{csrf_token()}}">  
+            <button class="w-100 btn hvr-hover btn-lg mb-5" type="submit" id="proceed">Proceed to Payment</button>
+          </button>
+            </div>
+            <div class="col-md-6"> 
+                <a href="{{url_for('cart')}}" style="text-decoration: none; color:white;" class="w-100 btn btn-lg mb-5 btn-danger">Go Back to Cart</a>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-2"></div>
+    </div>               
+  </div>
+</div>
+</main> 
+</div>
+  {% endblock %}
+
+
+
+    {% block lga_scripts %}
+      <script src="{{url_for('static', filename='js/checkout.js')}}"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+          integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+          crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+              integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+              crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+              integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+              crossorigin="anonymous"></script>
+      <script src="{{url_for('static', filename='js/lga.min.js')}}"></script>
+
+
+      <script language="javascript" type="text/javascript">
+        $(document).ready(function(){
+
+            $('#defaultShip').click(function(){
+                $('.newAddress').hide("slow");
+                $(".defaultAddress").show();
+                $("#defaultAddSpan").hide();
+                // $("#defaultShip").hide();
+                $("#newAddSpan").show();
+                $("#newShip").show();
+                $(".state_div").hide();
+            })
+
+            $("#newShip").click(function(){
+                $('.newAddress').show("slow");
+                $(".defaultAddress").hide();
+                $("#newAddSpan").hide();
+                // $("#newShip").hide();
+                $("#defaultAddSpan").show();
+                $("#defaultShip").show();
+                // $(".add_deets").show();
+                $(".state_div").show();
+
+
+            })
+
+            $("#proceed").dblclick(function(){
+              $("#proceed").attr('disabled', 'disabled');
+            })
+                      
+           
+            
+
+
+        })
+
+        const link = document.getElementById("myLink");
+
+        link.addEventListener("click", function(event) {
+          event.preventDefault();
+          console.log("Link clicked but default behavior prevented.");
+        });
+      </script>
+    {% endblock %}
+ 

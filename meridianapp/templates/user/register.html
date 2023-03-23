@@ -1,0 +1,213 @@
+{% extends "site/layout.html"%}
+
+{% block title %}
+<title>Signup - La Tienda Meridian</title>
+{% endblock %}
+
+
+    <!-- Start Cart  -->
+{% block content%}
+
+<!-- Registration Form  Start-->
+
+<div class="container-fluid my-5">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6"style="border-right: #AD343E solid 2px;border-left: #AD343E solid 2px;">
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    <h2 style="text-align: center;">Create an Account</h2>
+                </div>
+            </div>
+            {% with m=get_flashed_messages() %}
+            {% if m: %} 
+                {% for msg in m: %}
+                    {{ msg|safe }}
+                {% endfor %}
+            {% endif %}  
+        {% endwith %}
+            <form action="/register" method="post" class="regform">
+                <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+            <div class="col-md-12">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" name="email" placeholder="name@example.com" id="email">
+                    <label for="floatingInput">Email address</label>
+                    <small id="small_email" class="mt-5"></small>
+                </div> 
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="uname" placeholder="Username" id="uname">
+                    <label for="floatingInput">Username</label>
+                    <small id="small_uname" class="mt-5"></small>
+                </div> 
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="pnumber" placeholder="Phone Number">
+                    <label for="floatingInput">Phone Number</label>
+                </div> 
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="fname" placeholder="Name">
+                    <label for="floatingInput">First Name</label>
+                </div>  
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="lname" placeholder="Name">
+                    <label for="floatingInput">Last Name</label>
+                </div> 
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" name="pwd" placeholder="Password" id="regPwd">
+                    <label for="floatingInput">Password</label>
+                    <div class="mt-1">
+                        <button id="hideShow" class="btn btn-primary" type="button"> Show Password</button>
+                        <small>
+                            <ul>
+                                <li class="text-primary" style="list-style: none;">Password must:</li>
+                                <li id="len" class="text-danger">
+                                    be at least 8 character long.
+                                </li>
+                                <li id="upper" class="text-danger">contain at least on block alphabet (eg. A-Z)</li>
+                                <li id="lower" class="text-danger">contain at least one lower alphabet (eg. a-z)</li>
+                                <li id="char" class="text-danger">have at least one of any of these characters: @, #, $, !, _, *, ^</li>
+                                <li id="num" class="text-danger">contain at least one whole number</li>
+                            </ul>
+                        </small>
+                    </div> 
+                </div> 
+                
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="submit" class="form-control btn btn-lg hvr-hover" name="regbtn" id="regbtn" value="Create Account" disabled>
+                    </div>
+                </div>           
+            </form>
+            <p style="text-align: center;" class="signin-para mt-5">
+                Already have and Account? 
+                <a href="{{ url_for('login')}}" id="signin" class="btn hrv-hover">Sign In</a>
+            </p>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+
+<!-- Registration Form End  -->
+</div>
+{% endblock %}
+
+{% block more_scripts%}
+<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            $("#hideShow").click(function(){
+                var pass = $("#regPwd").attr("type");
+                $("#hideShow").addClass("btn btn-primary btn-sm")
+                if(pass == "password"){
+                    $("#regPwd").attr("type", "text");
+                    $("#hideShow").html("Hide Password")
+                    $("#hideShow").addClass("btn btn-danger")
+                }else{
+                    $("#regPwd").attr("type", "password");
+                    $("#hideShow").html("Show Password")
+                    $("#hideShow").removeClass("btn btn-danger")
+                }
+            })
+
+            $("#regPwd").on('keyup',function(){
+                pwdchk = $(this).val()
+                upper = pwdchk.match(/[A-Z]/g);
+                lower = pwdchk.match(/[a-z]/g);
+                num = pwdchk.match(/[0-9]/g);
+                char = pwdchk.match(/[@#$^&*_]/g);
+                len = pwdchk.length >= 8;
+
+                if (upper){
+                    $("#upper").removeClass('text-danger').addClass('text-success')
+                }else{
+                    $("#upper").removeClass('text-success').addClass('text-danger')
+                }
+                if (lower){
+                    $("#lower").removeClass('text-danger').addClass('text-success')
+                }else{
+                    $("#lower").removeClass('text-success').addClass('text-danger')
+                }
+                if (pwdchk.match(/[0-9]/g)){
+                    $("#num").removeClass('text-danger').addClass('text-success')
+                }else{
+                    $("#num").removeClass('text-success').addClass('text-danger')
+                }
+                if (char){
+                    $("#char").removeClass('text-danger').addClass('text-success')
+                }else{
+                    $("#char").removeClass('text-success').addClass('text-danger')
+                }
+                if (len){
+                    $("#len").removeClass('text-danger').addClass('text-success')
+                }else{
+                    $("#len").removeClass('text-success').addClass('text-danger')
+                }
+
+                if (upper && lower && num && len && char){
+                    $("#regbtn").removeAttr('disabled', 'disabled')
+                }else{
+                    $("#regbtn").attr('disabled', 'disabled')
+                }
+
+
+            })
+
+
+
+            $("#uname").change(function(){
+                var input_uname = $(this).val()
+                var csrf = "{{csrf_token()}}"
+                var data2send = {"uname":input_uname, "csrf_token":csrf}
+
+                $.ajax({
+                    url:"/check_username",
+                    type:"POST",
+                    data:data2send,
+                    dataType:'json',
+                    success:function(resp){
+                        $("#small_uname").html(resp['feedback'])
+                        $("#small_uname").removeClass('alert-danger alert-success')
+                        if(resp['status']==1){
+                            $("#small_uname").addClass(' alert-success')
+                        }else{
+                            $("#small_uname").addClass(' alert-danger')
+                        }
+                    },
+                    error:function(e){
+                        console.log(e)
+                    }
+                })
+            })
+
+            $("#email").change(function(){
+                var input_email = $(this).val()
+                var csrf = "{{csrf_token()}}"
+                var data2send = {"email":input_email, "csrf_token":csrf}
+
+                $.ajax({
+                    url:"/check_email",
+                    type:"POST",
+                    data:data2send,
+                    dataType:'json',
+                    success:function(resp){
+                        $("#small_email").html(resp['feedback'])
+                        $("#small_email").removeClass('alert-danger alert-success')
+                        if(resp['status']==1){
+                            $("#small_email").addClass(' alert-success')
+                        }else{
+                            $("#small_email").addClass(' alert-danger')
+                        }
+                    },
+                    error:function(e){
+                        console.log(e)
+                    }
+                })
+            })
+
+        })
+    </script>
+
+{%endblock%}
+
+
+

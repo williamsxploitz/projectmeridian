@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Site Metas -->
+    {%block title%}
+    <title>User Account - La Tienda Meridian</title>
+    {%endblock%}
+    
+    <meta name="keywords" content="quality,goods, gadgets, meridian, gadgets in lagos, quality gadgets, premium, best price, buy, sell, swap, best, authentic">
+    <meta name="description" content="La Tienda Meridian is a one-stop gadgets store where users can buy, sell and even swap old gadgets for new ones. We have the best prices and our gadgets are premium and authentic.">
+    <meta name="author" content="Williams Xploitz">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="{{url_for('static',filename='img/meridian/favicon.ico')}}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{url_for('static', filename='img/meridian/favicon.ico')}}">
+    
+    
+
+    {% block morelinks %}
+    {% endblock %}
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/stylez.css')}}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/responsive.css')}}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/custom.css')}}">
+	<!-- Font Awesome-->
+    <link href="{{url_for('static', filename='fawesome/css/all.css')}}" rel="stylesheet" type="text/css">
+	<!-- Animate CSS-->
+    <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/animate.min.css')}}">  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+
+    <style type="text/css">
+        .hvr-hover{
+            background-color:#F0B92D
+        }
+        .helpClass,.help-drop li a{
+            border-right: 0px solid black;
+        }
+        .help-drop:hover{
+            background-color: none !important;
+        }
+    </style>
+    {% block more_internal_css %}
+    {% endblock %}
+</head>
+
+{% block body_opening%}
+<body class=" bg-light">
+{% endblock %}
+  
+<!-- Start Main Top -->
+{% block main_top %}
+<div class="main-top pb-0">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-lg col-md col-sm-12 col-xs-12  our-link">
+              <ul class="nav justify-content-end">
+                  <li class="nav-item right-phone-box" id="phon">
+                      <a href="tel:+2348136560110" class="nav-link"><span>Call Us: </span>+234 813 6560 110</a>
+                  </li>
+                  <li class="nav-item right-phone-box" id="phon">
+                      <a href="mailto:latiendameridain@gmail.com" class="nav-link">Email Us</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>                
+</div>
+{% endblock %}
+<!-- End Main Top -->
+
+{% block fixed_nav %}
+<!-- Start - Nav for logo, sign-in/sign-up icon, cart and search bar -->
+<div class="nav-fix">
+    <div class="container-fluid search-nav">
+        <div class="row my-3">
+            <div class="col-md-2 px-3">
+                <a href="{{url_for('home')}}"><img src="{{url_for('static', filename='img/meridian/logo2.png')}}" width="100%" alt="LOGO"></a>
+            </div>
+            <!-- Search Bar -->
+            <div class="col-md-5 pt-2 searchbar">
+                <form class="d-flex" role="search" action="/search" method="get">
+                    <input class="form-control" type="search" placeholder="Search for products, brands and categories" aria-label="Search" width="100%" style="border-radius: 20px;" name="searchinput">
+                    <button type="submit" class="btn ms-1 searchBtn">Search</button>
+                </form>
+            </div>
+            <div class="col-md-5 pt-3">
+                <ul class="nav justify-content-around" style="color: #ECE9E9;">
+                  <li class=" ms-5">
+                    {% if details%}
+                    {% if details.profile_px !='' and details.profile_px != None %}
+                    <img src="{{ url_for('static', filename='/img/uploads/'+details.profile_px)}}" alt="Profile Picture" width="40" height="40" class="rounded-circle" style="border-radius:50%">
+                    {% else %}
+                    <img src="{{ url_for('static',filename='img/avatar.png')}}" alt="Picture avatar" width="32" height="32" class="rounded-circle">
+                    {% endif%}
+                  {%else%}
+                  <img src="{{ url_for('static',filename='img/avatar.png')}}" alt="Picture avatar" width="40" height="40" class="rounded-circle">
+                  {% endif %}
+                  
+                     <span style="color: #1E1014;">
+                        {% block session_name %}
+                        {% if session.get('user') != None %}
+                        Hi, <a href="{{url_for('user_account')}}"  class="logo-nav-link me-4" style="color:#AD343E; font-weight: 700;">
+                          {{ details.username.upper()}}
+                      </a>
+                      <a href="{{url_for('user_logout')}}"  class="logo-nav-link btn btn-dark btn-sm">
+                          logout
+                      </a>
+                      {% else %}
+                      <a href="{{url_for('user_signup')}}"  class="logo-nav-link">
+                          login/register
+                      </a>
+                    </span>
+                  
+                        {% endif %}
+                        {% endblock %}
+                        
+                  </li>
+                  <li>
+                    <a href="{{url_for('cart')}}" class="fa-solid fa-cart-shopping ms-3  position-relative logo-nav-link" style="font-size: 26px;">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px;" id="cart_no">{{mycart|count}}</span>
+                    </a>
+                    </li>
+                </ul>
+            </div>
+        </div>             
+    </div>
+{% endblock %}
+<!-- End - Nav for logo, sign-in/sign-up icon, cart and search bar -->
+
+{% block navbar %}
+<!--Start Navbar -->
+<div class="container-fluid px-0" style="margin-top: -2%; margin-bottom: -1%;">
+  <div class="row text-center">
+      <div class="col-lg col-md col-sm-12 col-xs-12">
+          <nav class="navbar navbar-expand-lg bg-body-tertiary">
+              <div class="container-fluid navitems">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-5">
+                      <li class="nav-item dropdown">   
+                         <a class="nav-link droplink nav-link all-cat" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              All Categories &nbsp;
+                           <i class="fa-solid fa-bars me-4" style="color: #F0B92D !important;"></i>                             
+                         </a>
+                         <ul class="dropdown-menu help-drop">
+                          {% for cat in productcategory %}
+                          <li><a href="{{url_for('product_categorypage',cartid=cat.category_id)}}" class="dropdown-item"> {{cat.name}}</a></li>
+                          {% endfor %}
+                      </ul>
+                      </li>
+                  </ul>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-5">
+                      <li class="nav-item mx-2">
+                          <a class="nav-link" href="{{url_for('all_ourproducts')}}" style="color:#AD343E !important; background-color: #ECE9E9; border: 1px solid #1E1014; border-radius: 10%;"><strong>All Products</strong></a>
+                      </li>
+                    <li class="nav-item mx-2">
+                      <a class="nav-link active" aria-current="page" href="{{url_for('user_account')}}">My Account</a>
+                  </li>
+                  {%if details.sell_status=='cansell'%}
+                  <li class="nav-item mx-2">
+                      <a class="nav-link active" aria-current="page" href="{{url_for('upload')}}">Sell</a>
+                  </li>
+                  {%else%}
+                  <li></li>
+                  {%endif%}
+                    <li class="nav-item dropdown mx-2">
+                      <a class="nav-link dropdown-toggle droplink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Shop
+                      </a>
+                      <ul class="dropdown-menu help-drop">
+                        <li><a href="{{url_for('cart')}}" class="dropdown-item"> Cart</a></li>
+                        {%if (mycart|count) !=0%}
+                        <li><a href="{{url_for('checkout')}}" class="dropdown-item"> Checkout</a></li>
+                        {%else%}
+                        <li><a href="{{url_for('cart')}}" class="dropdown-item"> Checkout</a></li>
+                        {%endif%}
+                        <li><a href="{{url_for('user_account')}}" class="dropdown-item"> My Account</a></li>
+                        <li><a href="#" class="dropdown-item"> Shop Detail</a></li>
+                      </ul>
+                  </li>
+                  <li class="nav-item dropdown mx-2" id="top-drop">
+                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #ECE9E9;">
+                        Help
+                      </a>
+                      <ul class="dropdown-menu help-drop">
+                        <li class="helpClass"><a class="dropdown-item" href="#">Help Centre</a></li>
+                        <li class="helpClass"><a class="dropdown-item" href="#">FAQs</a></li>
+                        <li class="helpClass"><a class="dropdown-item" href="#">Place & Track Order</a></li>
+                        <li class="helpClass"><a class="dropdown-item" href="{{url_for('user_account')}}">Order Cancellation</a></li>
+                        <li class="helpClass"><a class="dropdown-item" href="{{url_for('user_account')}}">Returns and Refunds</a></li>
+                      </ul>
+                    </li>
+                  <li class="nav-item mx-2">
+                      <a class="nav-link" href="{{url_for('contact_us')}}">Contact Us</a>
+                  </li>
+                  </ul>                    
+                </div>
+              </div>
+            </nav>
+      </div>
+  </div>
+</div>
+</div>
+{% endblock %}
+<!-- End Navbar -->
+
+<!-- Page Title and link string-->
+{% block Pagetitle %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12">            
+            <p style="font-size: 10px;">
+                <span><a href="site/index.html" class="sidelink">Home > &nbsp;</a></span>
+                <span><a href="{{url_for('userprofile')}}" class="sidelink">My Account > &nbsp;</a></span>
+                <span><a href="user/userprofile" class="sidelink">Profile &nbsp;</a></span>
+                <span></span>
+                <span></span>
+            </p>
+        </div>
+        <div class="col-md-12">            
+            <h4 style="letter-spacing: 10px; word-spacing: 10px;">MY PROFILE</h4>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- Page Title and link string -->
+
+{%block sidebar%}
+<!-- Side bar -->
+<div class="container">
+    <div class="row mb-5">
+<nav id="sidebarMenu" class="col-md-3 col-lg-3 ge-3 d-md-block sidebar collapse ps-3" style="background-color: rgb(247, 247, 241);">
+  <div class="position-sticky pt-3 sidebar-sticky">
+    <ul class="nav flex-column p-4">
+      <hr><li class="nav-item">
+          <span class="sidelink" style="color:#AD343E;font-weight: 800;">
+          <span data-feather="home" class="align-text-bottom"></span>
+          My Profile
+          </span>
+        <ul style="font-size: 13px; list-style-type:none;">
+          <li><a href="{{url_for('profile')}}" class="profilelink" >View or Edit Account</a></li>
+          <li><a href="{{url_for('profile_picture', userid=details.user_id)}}" class="profilelink" >Update Profile Picture</a></li>
+        </ul>
+      </li><hr>
+      <li class="nav-item">
+          <span class="sidelink">
+          <span data-feather="file" class="align-text-bottom"></span>
+          Login and Security
+          </span>
+        <ul style="font-size: 13px; list-style-type:none;">
+          <li><a href="{{url_for('login_security')}}" class="profilelink" >Change Password</a></li>
+        </ul>
+      </li><hr>
+      <li class="nav-item">
+          <span class="sidelink">
+          <span data-feather="shopping-cart" class="align-text-bottom"></span>
+          Address Book
+          </span>
+        <ul style="font-size: 13px; list-style-type:none;">
+          <li><a href="{{url_for('user_address')}}" class="profilelink" >Edit Address</a></li>
+        </ul>
+      </li><hr>
+      {%if details.sell_status=='cansell'%}
+      <li class="nav-item">
+        <span class="sidelink">
+          <span data-feather="layers" class="align-text-bottom"></span>
+          Sell
+        </span>
+        <ul style="font-size: 13px; list-style-type:none;">
+          <li><a href="{{url_for('upload')}}" class="profilelink" >Upload Product</a></li>
+          <li><a href="{{url_for('user_viewproducts')}}" class="profilelink" >View my Uploads Product</a></li>
+        </ul>
+      </li><hr>
+      {%else%}
+      <li></li><hr>
+      {%endif%}
+      <li class="nav-item">
+          <span class="sidelink">
+          <span data-feather="users" class="align-text-bottom"></span>
+          My Wallet
+          </span>
+        <ul style="font-size: 13px; list-style-type:none;">
+          <li><a href="{{url_for('wallet')}}" class="profilelink" >My Wallet</a></li>
+          <li><a href="{{url_for('seller_orders')}}" class="profilelink" >Seller Orders</a></li>
+        </ul>
+      </li><hr>
+      <li class="nav-item">
+        <span class="sidelink">
+          <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+          My Orders
+        </span>
+        <ul style="font-size: 13px; list-style-type:none;">
+          <li><a href="{{url_for('user_orders')}}" class="profilelink" >My Order</a></li>
+          <li><a href="#" class="profilelink" ></a></li>
+        </ul>
+      </li><hr>
+    </ul>
+  </div>
+</nav>
+      <!-- End sidebar -->
+      
+  
+{% block maincontent %}
+      <!-- Content -->
+     
+      <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4" style="background-color:rgb(245, 242, 242);">    
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        </div>    
+    </main>
+{% endblock %}
+
+</div>
+</div>
+<!-- End Side bar  -->
+{%endblock%}
+
+{% block footer %}
+<!-- Start Footer  -->
+<footer>
+    <div class="footer-main">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-md-2">
+                    <h6 style="color: #ECE9E9 !important;">EMAIL SUPPORT</h6>
+                    <a style="font-size: 12px; color: #F0B92D; text-decoration: none;" href="mailto:support@latiendameridian.com">support@latiendameridian.com</a>
+                </div>
+                <div class="col-md-2">
+                    <h6 style="color: #ECE9E9 !important;">PHONE SUPPORT</h6>
+                    <a style="font-size: 12px; color: #F0B92D; text-decoration: none;" href="tel:+23415930131" target="_blank">+234-901-593-0131</a>
+                </div>
+                <div class="col-md-2">
+                    <h6 style="color: #ECE9E9 !important;">WHATSAPP</h6>
+                    <a style="font-size: 12px; color: #F0B92D; text-decoration: none;" href="https://wa.me/+2348136560110">+234-813-656-0110</a>
+                </div>
+                <div class="col-md-2">
+                    <p style="font-size: 12px; color: #ECE9E9;">Subscribe to our newsletter to get updates on our latest offers!</p>
+                </div>
+                    <!-- Search Bar -->
+                <div class="col-md-4 pt-2 mb-5">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Email Address" aria-label="Search" width="100%" style="border-radius: 20px;">
+                        <button type="button" class="btn searchBtn">Subscribe</button>
+                    </form>
+                </div>
+                </div>
+            </div>
+            <div class="row mx-5">
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="footer-widget">
+                        <h4>About La Tienda Meridian</h4>
+                        <p>We founded this business with one goal in mind: providing a high-quality, smart, and reliable online store. Our passion for excellence has driven us from the beginning and continues to drive us into the future. We know that every product counts, and strive to make the entire shopping experience as rewarding as possible. Check it out for yourself! <a href="/meridian/about" style="color: #F0B92D;text-decoration: none;">more...</a>
+                            </p>
+                            <ul>
+                                <li><a href="https://wa.me/+2348136560110" target="_blank"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
+                                <li><a href="https://www.facebook.com/themeridianstore" target="_blank"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="https://www.twitter.com/d_meridianstore" target="_blank"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                                <li><a href="https://instagram.com/the_meridianstore" target="_blank"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                                <li><a href="https://www.linkedin.com/company/themeridianstore" target="_blank"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                                <li><a href="https://www.youtube.com/channel/UCRid-iY5ae7ZuqcrzTaPObQ/" target="_blank"><i class="fab fa-square-youtube" aria-hidden="true"></i></a></li>
+                                <li><a href="tel:+2349015930131"><i class="fa-solid fa-phone" aria-hidden="true"></i></a></li>
+                            </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="footer-link">
+                        <h4>Information</h4>
+                        <ul>
+                            <li><a href="/meridian/about">About Us</a></li>
+                            <li><a href="#">Track My order Us</a></li>
+                            <li><a href="#">Sell on Meridian</a></li>
+                            <li><a href="#">FAQs</a></li>
+                            <li><a href="#">Terms &amp; Conditions</a></li>
+                            <li><a href="#">Shipping &amp; Returns</a></li>
+                            <li><a href="#">Payment Methods</a></li>
+                            <li><a href="#">Help Centre</a></li>
+                            <li><a href="#">Delivery Options &amp; Timeline</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="footer-link-contact">
+                        <h4>Contact Us</h4>
+                        <ul>
+                            <li>
+                                <p><i class="fas fa-map-marker-alt"></i>Address: School of Transport, <br>Lagos State University, Ojo<br> 102101 Lagos. </p>
+                            </li>
+                            <li>
+                                <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:+2348136560110">+234-813-6560-110</a></p>
+                            </li>
+                            <li>
+                                <p><i class="fas fa-envelope"></i>Email: <a href="mailto:latiendameridian@gmail.com">latiendameridian@gmail.com</a></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer  -->
+{% endblock %}
+
+{%block final_footer%}
+    <!-- Start copyright  -->
+    <div class="footer-copyright">
+        <p class="footer-company">All Rights Reserved. &copy; 2023 <a href="#">La Tienda Meridian</a>
+    </div>
+    <!-- End copyright  -->
+{%endblock%}
+
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+<script src="{{url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js')}}" type='text/javascript'></script>
+<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+
+
+{% block morescripts %}
+{% endblock %}
+
+
+</body>
+</html>

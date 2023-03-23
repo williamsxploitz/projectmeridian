@@ -1,0 +1,124 @@
+{% extends "user/profile-layout.html" %}
+
+{% block Pagetitle %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12">            
+            <p style="font-size: 10px;">
+                <span><a href="#" class="sidelink">Home > &nbsp;</a></span>
+                <span><a href="#" class="sidelink">My Account > &nbsp;</a></span>
+                <span><a href="#" class="sidelink" style="color:#AD343E !important">Profile &nbsp;</a></span>
+                <span></span>
+                <span></span>
+            </p>
+        </div>
+        <div class="col-md-12">            
+            <h4 style="letter-spacing: 10px; word-spacing: 10px;">MY PROFILE</h4>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- Page Title and link string -->
+
+{% block session_name %}
+{% if session.get('user') != None %}
+Hi, <a href="{{url_for('user_account')}}"  class="logo-nav-link me-4" style="color:#AD343E; font-weight: 700;">
+    {{ details.username.upper()}}
+</a>
+<a href="{{url_for('user_logout')}}"  class="logo-nav-link btn btn-dark btn-sm">
+    logout
+</a>
+{% else %}
+<a href="{{url_for('user_signup')}}"  class="logo-nav-link">
+    login/register
+</a>
+</span>
+
+  {% endif %}
+  {% endblock %}
+
+{% block maincontent %}
+      <!-- Content -->
+    <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4" style="background-color:rgb(245, 242, 242);">
+      <h2 class="h3 text-center mt-2" style="color:#AD343E;">Address</h2> <hr>
+      <div class="row">
+        {%with msg=get_flashed_messages()%}
+              {%if msg%}
+                {%for m in msg%}
+                  {{m|safe}}
+                {%endfor%}
+              {%endif%}
+            {%endwith%}
+        <div class="col-md-4">
+          <h5 class="mt-5" style="text-decoration:underline ;">Current Address</h5>
+          <p class="fw-bold" style="font-size: 18px;">
+            <span>{{details.address}},</span><br>
+            <span>{{details.mylga.lga_name}}</span>
+            <span>{{details.postalcode}},</span><br>
+            <span>{{details.mystate.state_name}},</span>
+        </p>
+        </div>
+        <div class="col-md-8" style="border-left: 3px solid #AD343E;">
+          <form action="{{url_for('user_address')}}" class="regform" method="post">
+            <h5 class="mt-3"><u style="text-decoration: underline;"> Edit Address</u></h5>
+            <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+            <div class="form-floating">
+                <input type="text" class="form-control" name="add" id="add" placeholder="Enter Address" required value="" id="add">
+                <label for="floatingInput">Address Line</label>
+              </div>
+              <div class="row mb-4">
+                <div class="form-group col-md-4">
+                    <label class="control-label form-label mb-1">
+                        State of Residence
+                    </label>
+                    <select name="state" id="state" class="form-control">
+                        <option value="" selected="selected">Select State</option>
+                        {% for state in allstate %}
+                        <option value="{{state.state_id}}">{{state.state_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group  col-md-5">
+                    <label class="control-label mb-1">LGA</label>
+                    <div id="mylgas"></div>
+                </div>
+                <div class="form-group col-md-3">
+                  <label class="form-label mb-1">Postal Code</label>
+                  <input type="number" class="form-control" name="pcode" value="">
+              </div> 
+            </div>
+            
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <input type="submit" class="form-control btn btn-lg hvr-hover" id="regbtn" value="Edit Profile Details">
+                  </div>
+              </div>           
+          </form>
+        </div>
+        
+      </div>
+   
+
+</div>
+</main>
+{% endblock %}
+
+{% block morescripts %}
+<script>
+    $(document).ready(function(){
+        $("#state").change(function(){
+            var stateid = $(this).val()
+            $.ajax({
+                type:"GET",
+                url:"/load_lga/"+stateid,
+                success:function(resp){
+                    $("#mylgas").html(resp)
+                }
+            })
+        })
+
+
+
+    })
+</script>
+{% endblock %}

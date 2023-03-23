@@ -1,0 +1,29 @@
+/* Import Fonts */
+@font-face{
+  font-family:mountainbody;
+  src:url(../fonts/Kanit_sans/Kanit-Regular.ttf);			
+  } 
+  @font-face{
+  font-family:crete-serif;
+  src:url(../fonts/Crete_Round/CreteRound-Regular.ttf);			
+  }
+  @font-face{
+    font-family:crete-serif-italics;
+    src:url(../fonts/Crete_Round/CreteRound-Italic.ttf);			
+    }
+  @font-face{
+    font-family:Courgette;
+    src:url(../fonts/Courgette/Courgette-Regular.ttf);
+  }
+  @font-face{
+    font-family:bree-serif;
+    src:url(../fonts/bree_serif/BreeSerif-Regular.ttf);
+  }
+  @font-face {
+    font-family:kanit-sans ;
+    src: url(../fonts/Kanit_sans/Kanit-Regular.ttf);
+  }
+  @font-face{
+    font-family:klavaka-sans;
+    src:url(../fonts/klavaka/klavika-medium-italic.otf)			
+    }

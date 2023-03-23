@@ -1,0 +1,135 @@
+{% extends "user/profile-layout.html" %}
+
+{% block Pagetitle %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12">            
+            <p style="font-size: 10px;">
+                <span><a href="#" class="sidelink">Home > &nbsp;</a></span>
+                <span><a href="#" class="sidelink">My Account > &nbsp;</a></span>
+                <span><a href="#" class="sidelink" style="color:#AD343E !important">Profile &nbsp;</a></span>
+                <span></span>
+                <span></span>
+            </p>
+        </div>
+        <div class="col-md-12">            
+            <h4 style="letter-spacing: 10px; word-spacing: 10px;">MY PROFILE</h4>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- Page Title and link string -->
+
+
+
+
+        {% block sidebar %}
+        <nav id="sidebarMenu" class="col-md-3 col-lg-3 ge-3 d-md-block sidebar collapse ps-3" style="background-color: rgb(247, 247, 241);">
+        <div class="position-sticky pt-3 sidebar-sticky">
+          <ul class="nav flex-column p-4">
+            <hr><li class="nav-item">
+                <span class="sidelink" style="color:#AD343E;font-weight: 800;">
+                <span data-feather="home" class="align-text-bottom"></span>
+                My Profile
+                </span>
+              <ul style="font-size: 13px; list-style-type:none;">
+                <li><a href="{{url_for('profile')}}" class="profilelink" >View Account</a></li>
+                <li><a href="{{url_for('editprofile')}}" class="profilelink" >Edit Account</a></li>
+              </ul>
+            </li><hr>
+            <li class="nav-item">
+                <span class="sidelink">
+                <span data-feather="file" class="align-text-bottom"></span>
+                Login and Security
+                </span>
+              <ul style="font-size: 13px; list-style-type:none;">
+                <li><a href="#" class="profilelink" >Change Password</a></li>
+              </ul>
+            </li><hr>
+            <li class="nav-item">
+                <span class="sidelink">
+                <span data-feather="shopping-cart" class="align-text-bottom"></span>
+                Address Book
+                </span>
+              <ul style="font-size: 13px; list-style-type:none;">
+                <li><a href="#" class="profilelink" >Edit Address</a></li>
+              </ul>
+            </li><hr>
+            <li class="nav-item">
+              <span class="sidelink">
+                <span data-feather="layers" class="align-text-bottom"></span>
+                Sell
+              </span>
+              <ul style="font-size: 13px; list-style-type:none;">
+                <li><a href="{{url_for('upload')}}" class="profilelink" >Upload Product</a></li>
+                <li><a href="#" class="profilelink" >View my Uploads Product</a></li>
+              </ul>
+            </li><hr>
+            <li class="nav-item">
+                <span class="sidelink">
+                <span data-feather="users" class="align-text-bottom"></span>
+                My Wallet
+                </span>
+              <ul style="font-size: 13px; list-style-type:none;">
+                <li><a href="#" class="profilelink" >My Wallet</a></li>
+                <li><a href="#" class="profilelink" >Add Payment Method</a></li>
+              </ul>
+            </li><hr>
+            <li class="nav-item">
+              <span class="sidelink">
+                <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+                My Orders
+              </span>
+              <ul style="font-size: 13px; list-style-type:none;">
+                <li><a href="#" class="profilelink" >My Order</a></li>
+                <li><a href="#" class="profilelink" ></a></li>
+              </ul>
+            </li><hr>
+            <li class="nav-item">
+              <span class="sidelink">
+                <span data-feather="layers" class="align-text-bottom"></span>
+                Delete Account
+              </span>
+              <li><a href="#" class="profilelink" >Delete Account</a></li>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      {% endblock %}
+      <!-- End sidebar -->
+{% block maincontent %}
+      <!-- Content -->
+<main class="col-md-9 ms-sm-auto col-lg-9 px-md-4" style="background-color:rgb(245, 242, 242);">
+    <h2 class="h2 text-center mt-2" style="color:#AD343E;">View Profile</h2> <hr>
+  <div class="row m-5">
+    <div class="col-md-3"></div>
+    <div class="col-md-6" style="font-size: 22px;">
+      <div class="form-floating mb-3 text-center">
+        <p><span style="color:#AD343E;">Email: </span><br>
+          <span class="fw-bold">{{details.email}}</span>
+        </p>
+      </div> 
+      <div class="form-floating mb-3 text-center" style="font-size: 22px;">              
+        <p><span style="color:#AD343E;">Username: </span><br>
+          <span class="fw-bold">{{details.username}}</span>
+        </p>
+      </div> 
+      <div class="form-floating mb-3 text-center" style="font-size: 22px;">
+        <p><span style="color:#AD343E;">Phone number: </span><br>
+          <span class="fw-bold">{{details.phone}}</span>
+        </p>
+      </div> 
+      <div class="form-floating mb-3 text-center" style="font-size: 22px;">
+        <p><span style="color:#AD343E;">First name: </span><br>
+          <span class="fw-bold">{{details.firstname}}</span>
+        </p>
+      </div>  
+      <div class="form-floating mb-3 text-center" style="font-size: 22px;">
+        <p><span style="color:#AD343E;">Last name: </span><br>
+          <span class="fw-bold">{{details.lastname}}</span>
+        </p>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "site/layout.html" %}
+{% block title %}
+<title>Signin - La Tienda Meridian</title>
+{% endblock %}
+
+{% block session_name %}
+
+<a href="{{url_for('user_signup')}}"  class="logo-nav-link">
+    login/register
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 my-5" style="border-right: #AD343E solid 2px;border-left: #AD343E solid 2px;">
+            <h3 style="text-align: center;"> Login</h3> 
+            <!-- flash messages  -->
+            {% with m=get_flashed_messages() %}
+                {% if m: %} 
+                    {% for msg in m: %}
+                        {{ msg|safe }}
+                    {% endfor %}
+                {% endif %}  
+            {% endwith %}
+            <!-- end flash messages -->
+
+            <!-- form start -->
+            <form action="{{url_for('login')}}" method="post" class="loginform">
+                <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+                <div class="row my-3">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="loginUname" class="form-label mb-1 cat-labels">Username</label>
+                            <input type="text" class="form-control" name="uname" id="loginUname" placeholder="Enter Username">
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-md-12">
+                        <div class="form-group mb-2">
+                            <label for="pwd" class="form-label mb-1 cat-labels">Password</label>
+                            <input type="password" class="form-control mb-1" name="pwd" id="loginPwd" placeholder="Enter Password">
+                            <div>
+                                <button id="hideShow" class="btn btn-primary btn-sm" type="button"> Show Password</button>
+                            </div> 
+                        </div>
+                        <small><a class="link-danger fw-bold" href="{{url_for('reset_password')}}">Can't remember your password?</a></small>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="submit" class="form-control btn-lg btn hvr-hover" id="loginbtn" value="Login">
+                    </div>
+                </div>    
+            </form>
+            <!-- End form  -->
+            <p style="text-align: center;" class="signin-para mt-5">
+                Don't have an Account? 
+                <a href="{{ url_for('user_signup')}}" id="signin" class="btn hrv-hover">Sign Up</a>
+            </p>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block more_scripts%}
+<script>
+    $(document).ready(function(){
+        $("#hideShow").click(function(){
+            var pass = $("#loginPwd").attr("type");
+            if(pass == "password"){
+                $("#loginPwd").attr("type", "text");
+                $("#hideShow").html("Hide Password")
+            }else{
+                $("#loginPwd").attr("type", "password");
+                $("#hideShow").html("Show Password")
+            }
+        })
+    })
+</script>
+{% endblock %}

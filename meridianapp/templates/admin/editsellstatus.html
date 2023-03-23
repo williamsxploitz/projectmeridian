@@ -1,0 +1,55 @@
+{% extends 'admin/adminlayout.html' %}
+
+
+
+    <!-- Site Metas -->
+    {% block title %}
+    <title>Orders Details - Meridian Admin</title>
+    {% endblock %}
+
+    {% block canvas %}
+    {% endblock %}
+
+    {% block top_content %}
+    <!-- Content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Seller Status</h1>
+      </div>
+      {% endblock %}
+
+
+  
+
+
+      {% block main_content %}
+      <h4>Edit User's Seller Status</h4>
+      <div class="row mt-5">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <form action="/admin/edit-users-sell-status/{{updateuser.user_id}}" method="post">
+            <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+            <select name="sellstatus" id="sellstatus" class="form-control mb-3">
+                <option value="cansell">Allow User to Sell</option>
+                <option value="cannotsell">Restrict User from Selling</option>
+                <option value="probation">Place User on Probation</option>
+            </select>
+            <p><button class="btn btn-success w-100">Submit</button></p>
+          </form>
+        
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+    </main>
+    {% endblock %}
+  </div>
+</div>
+
+
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
+  </body>
+</html>

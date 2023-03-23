@@ -1,0 +1,54 @@
+{% extends 'admin/adminlayout.html' %}
+
+
+
+    <!-- Site Metas -->
+    {% block title %}
+    <title>Orders Details - Meridian Admin</title>
+    {% endblock %}
+
+    {% block canvas %}
+    {% endblock %}
+
+    {% block top_content %}
+    <!-- Content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mb-5">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
+        <h1 class="h2">Message from  <span class="text-danger">{{fromcontact.email_ofcontact}}</span></h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-warning"><a href="{{url_for('contactus_messages')}}" class="top-link">All Messages</a></button>
+            <button type="button" class="btn btn-sm btn-outline-warning"><a href="{{url_for('contactus_messages_unread')}}" class="top-link">Unread</a></button>
+            <button type="button" class="btn btn-sm btn-outline-warning"><a href="{{url_for('contactus_messages_read')}}" class="top-link">Read</a></button>
+            <button type="button" class="btn btn-sm btn-outline-warning"><a href="{{url_for('contactus_messages_responded')}}" class="top-link">Responded</a></button>
+          </div>
+        </div>
+      </div>
+      {% endblock %}
+
+
+  
+
+
+      {% block main_content %}
+      <div class="table-responsive" style="font-size: 18px;">
+          <div> <h5 class="mt-2 h4 text-decoration-underline" style="color: #AD343E;">Message Details</h5>
+            <p><span class="fw-bold">Sender's Name: </span>{{fromcontact.name_ofcontact}}</p>
+            <p><span class="fw-bold">Sender's Email: </span>{{fromcontact.email_ofcontact}}</p>
+            <p><span class="fw-bold">Subject of Message: </span>{{fromcontact.subject_ofcontact}}</p>
+            <p><span class="fw-bold text-decoration-underline">Message Content: </span><br><textarea name="" id="" cols="100" rows="4" readonly class="w-50 fw-bold text-danger border-0">{{fromcontact.message_ofcontact}}</textarea></p>
+          </div>
+       </div>
+    </main>
+    {% endblock %}
+  </div>
+</div>
+
+
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+{% extends "admin/adminlayout.html"%}
+
+{% block title %}
+<title>Product Categories - La Tienda Meridian</title>
+{% endblock %}
+
+{% block canvas %}
+{% endblock %}
+
+{% block top_content %}
+<!-- Content -->
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h3">Products</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="/admin/products/view-products" class="btn btn-sm btn-outline-secondary">View Products</a>
+            <a href="/admin/products/add-products" class="btn btn-sm btn-outline-secondary">Add Products</a>
+        </div>
+    </div>
+  </div>
+  {% endblock %}
+
+{% block main_content %}
+
+<!-- Add Categories -->
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-md-12">                        
+            <h2 class="h5 text-center" style="color: #AD343E;">Add Products</h2> <hr>
+            <div class="form" method="post" action="{{url_for('add_products')}}">
+                <div class="container">
+                    <form action="" method="post">                        
+                        <div class="container">
+                            <div class="row mt-5">
+                                <div class="col-md-3"></div>
+                                <form action="{{url_for('product_image')}}" method="post">
+                                    <div class="form-group mb-3 col-md-6">
+                                        <label for="" class="form-label fw-bold">Upload Product Image(s)</label>
+                                        <input type="file" name="prod_img" id="" class="form-control" multiple>
+                                    </div>
+                                </form>
+                                <div class="col-md-3"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<!-- End Add Categories -->
+{% endblock %}

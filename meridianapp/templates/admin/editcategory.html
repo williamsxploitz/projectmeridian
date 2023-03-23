@@ -1,0 +1,64 @@
+{% extends "admin/adminlayout.html"%}
+
+{% block title %}
+<title>Product Categories - La Tienda Meridian</title>
+{% endblock %}
+
+{% block canvas %}
+{% endblock %}
+
+{% block top_content %}
+<!-- Content -->
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h3">Product Categories</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="/admin/products/view-categories" class="btn btn-sm btn-outline-secondary">View Categories</a>
+            <a href="/admin/products/add-categories" class="btn btn-sm btn-outline-secondary">Add Categories</a>
+        </div>
+    </div>
+  </div>
+  {% endblock %}
+
+{% block main_content %}
+
+<!-- Add Categories -->
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">                        
+            <h2 class="h5 text-center" style="color: #AD343E;">Edit Category</h2> <hr>
+            <div class="form">
+                <div class="my-3">
+                    {%if cat_deets.cat_img !="" and cat_deets.cat_img !=None %}
+                    <img src="{{url_for('static', filename='/catuploads/'+cat_deets.cat_img)}}" alt="" width="100%">
+                    {%else%}
+                    <img src="{{url_for('static', filename='/catuploads/download.jpg')}}" alt="" width="100%">
+                    {%endif%}
+                </div>
+                <form action="/admin/edit-category/{{cat_deets.category_id}}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+                <div class="form-group mb-3">
+                        <label for="" class="form-label fw-bold">Category Name</label>
+                        <input type="text" name="cat_name" id="" class="form-control" value="{{cat_deets.name}}">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="" class="form-label fw-bold">Category Description</label>
+                        <input type="text" name="cat_desc" id="" class="form-control" value="{{cat_deets.description}}">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="" class="form-label fw-bold">Category Image</label>
+                        <input type="file" name="cat_img" id="" class="form-control">
+                        <small>*File extensions allowed: jpg, jpeg, png</small>
+                    </div>
+                    <button type="submit" class="btn btn-warning w-100">Add</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+    
+<!-- End Add Categories -->
+{% endblock %}

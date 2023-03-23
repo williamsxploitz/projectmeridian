@@ -1,0 +1,142 @@
+{% extends "site/layout.html" %}
+{% block title %}
+<title>Cart - La Tienda Meridian</title>
+{% endblock %}
+
+
+    <!-- Start Cart  -->
+{% block content%}
+
+    <div class="cart-box-main">
+        <div class="container">
+            <div class="row">         
+            <h3 class="statement-title">
+                <i class="fa-solid fa-cart-shopping text-center" style="color: #F0B92D;"></i>
+                CART ITEMS
+            </h3><hr>
+                <div class="col-lg-12">
+                    <div class="table-main table-responsive">
+                        <table class="table">
+                            {% if mycart%}
+                            <thead>
+                                <tr>
+                                    <th>Images</th>
+                                    <th>Product Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            {%else%}
+                            <thead hidden>
+                                <tr>
+                                    <th>Images</th>
+                                    <th>Product Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            {%endif%}
+                            <tbody>
+                                {% if mycart%}
+                                    {% for cartitems in mycart%}
+                                <tr>
+                                    {%for c,d in items%}
+                                        {% if d==cartitems.cart_productid %}
+                                        <td class="thumbnail-img">
+                                            <a href="{{url_for('site_productpage',prodid=cartitems.prod_deets.product_id)}}">
+                                        <img class="img-fluid" src="{{url_for('static', filename='productuploads/'+c)}}" alt="{{cartitems.prod_deets.name}}" />
+                                    </a>
+                                        </td>
+                                        
+                                        {%endif%}
+                                    {%endfor%}
+                                    <td class="name-pr">
+                                        <a href="{{url_for('site_productpage',prodid=cartitems.prod_deets.product_id)}}">
+									        {{cartitems.prod_deets.name}}
+								        </a>
+                                    </td>
+                                    <td class="price-pr">
+                                        <p style="font-size: 18px; font-weight: 700;">&#8358; {{"{0:,.2f}".format(cartitems.amount)}}</p>
+                                    </td>
+                                    <td class="total-pr text-center">
+                                        <p style="font-size: 18px; font-weight: 700;">
+                                            <a href="{{url_for('site_productpage',prodid=cartitems.prod_deets.product_id)}}">
+                                            <span class="badge bg-secondary">Add</span></a><br>
+                                            {{cartitems.qty}} 
+                                        </p>
+                                    </td>
+                                    <td class="total-pr">
+                                        <p style="font-size: 18px; font-weight: 700;">&#8358; {{"{0:,.2f}".format(cartitems.total_amount)}}</p>
+                                    </td>
+                                    <td class="remove-pr">
+                                        <a href="{{url_for('delete_cartitem',cartid=cartitems.cart_id)}}">
+                                            <i class="fas fa-times" onclick="return confirm('Do you really want to delete?')"></i>
+								        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {%else%}
+                                <div>
+                                    <p class="alert alert-warning">Your cart is empty! Click <a href="{{url_for('all_ourproducts')}}">Here</a> to add items to cart</p>
+                                </div>
+                                {% endif %}
+                                    
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-5">
+                <div class="col-lg-6 col-sm-6">
+                    <div class="coupon-box">
+                        <div class="input-group input-group-sm" hidden>
+                            <input class="form-control" placeholder="Enter your coupon code (Not Applicable for this product)" aria-label="Coupon code" type="text">
+                            <div class="input-group-append">
+                                <button class="btn btn-theme" type="button" disabled>Apply Coupon</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                    <div class="update-box">
+                        {% if mycart%}
+                        <a href="{{url_for('checkout')}}"><input value="Proceed to Checkout" type="submit"></a>
+                        {%else%}
+                        <a href="{{url_for('checkout')}}"><input value="Proceed to Checkout" type="submit" hidden></a>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+
+          
+        </div>
+    </div>
+    <!-- End Cart -->
+
+    <!-- Payment Methods  -->
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="statement-title">
+                <i class="fa-solid fa-money-bill text-center" style="color: #F0B92D;"></i>
+                PAYMENT METHODS
+            </h3>
+            <marquee behavior="" direction="">
+                <img src="{{url_for('static',filename='img/meridian/payment-icon/1.png')}}" alt="" class="mx-5">
+                <img src="{{url_for('static',filename='img/meridian/payment-icon/2.png')}}" alt="" class="mx-5">
+                <img src="{{url_for('static',filename='img/meridian/payment-icon/3.png')}}" alt="" class="mx-5">
+                <img src="{{url_for('static',filename='img/meridian/payment-icon/4.png')}}" alt="" class="mx-5">
+                <img src="{{url_for('static',filename='img/meridian/payment-icon/5.png')}}" alt="" class="mx-5">
+                <img src="{{url_for('static',filename='img/meridian/payment-icon/6.png')}}" alt="" class="mx-5">
+                <img src="{{url_for('static',filename='img/meridian/payment-icon/7.png')}}" alt="" class="mx-5">
+        </marquee>
+        </div>
+    </div>
+</div>
+<!-- End Payment Methods  -->
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends "user/profile-layout.html" %}
+
+{% block main_top %}
+{%endblock%}
+
+{%block title%}
+    {%if orders%}
+    <title>Print Order Details - Order Reference: #{{orders.prodref}}</title>
+    {%else%}
+    <title>Print Order Details - </title>
+    {%endif%}
+{%endblock%}
+
+{% block Pagetitle %}
+{% endblock %}
+
+{% block fixed_nav %}
+{%endblock%}
+
+{% block navbar %}
+{%endblock%}
+
+{%block sidebar%}
+<div class="container mt-5">
+    <div class="row mb-5">
+        <div class="col-md-12">
+
+        {% block maincontent %}
+        <!-- Content -->
+        <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4" style="background-color:rgb(245, 242, 242);">
+            <div class="row mb-5">
+                <div class="col-md-2"></div>
+                <div class="col-md-8 text-center">
+                    <img src="{{url_for('static', filename='img/meridian/logo2.png')}}" alt="" width="300px">
+                </div>
+                <div class="col-md-2"></div>
+            </div> <hr>
+            <div class="row">
+                {%if orders%}
+                <h3 style="text-align: center;" class="mb-2">SALES INVOICE</h3>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10">
+                    <h5 style="color: #AD343E; text-decoration: underline;">CUSTOMER DETAILS</h5>
+                    <p>
+                        <span style="text-transform: uppercase; font-weight: 600;">{{thisorder.receivers_name}}</span><br>
+                        <span>{{thisorder.address}}</span>
+                    </p>
+                    <h5 style="color: #AD343E; text-decoration: underline;">ORDER SUMMARY</h5>
+                    <div class="row g-0 mt-3">
+                        <div class="col-md-12 mb-3">
+                            <img src="/qrcode/thisorder.ref_no" width="300px">
+                            <p>Scan code to track your order</p>
+                        </div>
+                    <h5 style="color: #AD343E; text-decoration: underline;">ORDER DETAILS</h5>
+                        <div class="col-md-4 fw-bold"><p>Order Number:</p></div>
+                        <div class="col-md-8"><p>#{{orders.prodref}}</p></div>
+
+                        <div class="col-md-4 fw-bold"><p>Quantity x Price: </p></div>
+                        <div class="col-md-8"><p>{{orders.qty}} &nbsp; x &nbsp; &#8358; {{"{0:,.2f}".format(orders.amount)}}</p></div>
+
+                        <div class="col-md-4 fw-bold"><p>Total: </p></div>
+                        <div class="col-md-8 fw-bold"><p>&#8358; {{"{0:,.2f}".format(orders.total)}}</p></div>
+
+                        <div class="col-md-4 fw-bold"><p>Product Name: </p></div>
+                        <div class="col-md-8 fw-bold"><p>{{orders.prod_name.upper()}}</p></div>
+
+                        <div class="col-md-4 fw-bold"><p>SKU: </p></div>
+                        <div class="col-md-8"><p> {{orders.prod_sku}}</p></div>
+                    </div>
+                </div><hr>
+              <div class="col-sm-1"></div>
+             {%endif%}
+          </div>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <p class="fw-bold mt-3" style="font-size: 18px;">Dear {{thisorder.receivers_name}},</p>
+                <p>Thank you for shopping with us. At La Tienda Meridian, every customer is royalty; we are glad to be a part of gadgets collection.</p>
+                <p>Even though as a business we sell a variety of gadgets, majority of the items on display are posted by various sellers aside us. Therefore, if you ordered for more than one item, be rest assured that everyone of them would be delivered to you as soon as we have received them from the sellers.</p>
+                <p class="fw-bold" style="font-size: 18px;">Issues with Quality</p>
+                <p>Here, we make sure that before items are dispatched they are wholesomely perused, checked and tested. However, we understand that on some occassions, items might not meet your satisfaction (in this case, the item developed a fault before it got to you or within (7) seven days after you received it). In this case, before we give a 7-day window for returns. Please go through our <a href="#">terms and conditions</a> for returning items delivered.</p>
+                <p class="fw-bold" style="font-size: 18px;">Refunds and Returns</p>
+                <p>Eligible items that meets the returns terms and conditions would be picked up by our rider from you, and if we deem the issue fit for a refund, you would get an 100% refund or a replacement. However, damages caused by you would not be replaced nor refunded.</p>
+                <p>To get in touch with us for more information, complaints or questions, please fill our <a href="{{url_for('contact_us')}}">Contact us</a> form</p>
+                <p>Thanks again for shopping with us.</p>
+                <p>Sincerely,</p>
+                <p class="fw-bold">La Tienda Meridan.</p>
+
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+  
+      </main>
+  {% endblock %}
+</div>
+</div>
+</div>
+{%endblock%}
+
+{% block session_name %}
+{% endblock %}
+
+{% block morescripts %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{%block final_footer%}
+{% endblock %}

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Site Metas -->
+    <title>La Tienda Meridian - Buy, Sell, Swap Ecommerce Store</title>
+    <meta name="keywords" content="quality,goods, gadgets, meridian, gadgets in lagos, quality gadgets, premium, best price, buy, sell, swap, best, authentic">
+    <meta name="description" content="La Tienda Meridian is a one-stop gadgets store where users can buy, sell and even swap old gadgets for new ones. We have the best prices and our gadgets are premium and authentic.">
+    <meta name="author" content="Williams Xploitz">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="{{url_for('static',filename='img/meridian/favicon.ico')}}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{url_for('static', filename='img/meridian/favicon.ico')}}">
+    
+
+    
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/stylez.css')}}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/responsive.css')}}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/custom.css')}}">
+	<!-- Font Awesome-->
+    <link href="{{url_for('static', filename='fawesome/css/all.css')}}" rel="stylesheet" type="text/css">
+	<!-- Animate CSS-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/animate.min.css')}}">
+
+    <style type="text/css">
+        .hvr-hover{
+            background-color:#F0B92D
+        }
+        .helpClass,.help-drop li a{
+            border-right: 0px solid black;
+        }
+        .help-drop:hover{
+            background-color: none !important;
+        }
+    </style>
+</head>
+
+<body>
+  
+<!-- Start Main Top -->
+
+<div class="main-top pb-0">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg col-md col-sm-12 col-xs-12  our-link">
+                <ul class="nav justify-content-end">
+                    <li class="nav-item dropdown top-drop" id="top-drop">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #ECE9E9;">
+                          Help
+                        </a>
+                        <ul class="dropdown-menu help-drop">
+                          <li class="helpClass"><a class="dropdown-item" href="#">Help Centre</a></li>
+                          <li class="helpClass"><a class="dropdown-item" href="#">FAQs</a></li>
+                          <li class="helpClass"><a class="dropdown-item" href="#">Place & Track Order</a></li>
+                          <li class="helpClass"><a class="dropdown-item" href="{{url_for('user_account')}}">Order Cancellation</a></li>
+                          <li class="helpClass"><a class="dropdown-item" href="{{url_for('user_account')}}">Returns and Refunds</a></li>
+                        </ul>
+                      </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{url_for('user_account')}}">My Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('contact_us')}}">Contact Us</a>
+                    </li>
+                    <li class="nav-item right-phone-box" id="phon">
+                        <a href="#" class="nav-link"><span>Call Us: </span>+234 813 6560 110</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>                
+</div>
+
+<!-- End Main Top -->
+
+<!-- Start - Nav for logo, sign-in/sign-up icon, cart and search bar -->
+<div class="nav-fix">
+<div class="container-fluid search-nav">
+    <div class="row my-3">
+        <div class="col-md-2 px-3">
+            <a href="{{url_for('home')}}"><img src="{{url_for('static', filename='img/meridian/logo2.png')}}" width="100%" alt="LOGO"></a>
+        </div>
+        <!-- Search Bar -->
+        <div class="col-md-5 pt-2 searchbar">
+            <form class="d-flex" role="search">
+                <input class="form-control" type="search" placeholder="Search for products, brands and categories" aria-label="Search" width="100%" style="border-radius: 20px;">
+                <!-- <a href="#" class="fa-solid fa-magnifying-glass mt-2 search-fa"></a> -->
+                <button type="button" class="btn ms-1 searchBtn">Search</button>
+              </form>
+        </div>
+        <div class="col-md-5 pt-3">
+            <ul class="nav justify-content-center" style="color: #ECE9E9;">
+                <li class="nav-item btn-group" role="group" aria-label="Basic mixed styles example">
+                    <button type="button" class="btn btn-sm"><a href="#" class="logo-nav-link">BUY</a> </button>
+                    <button type="button" class="btn btn-sm"><a href="{{url_for('upload')}}" class="logo-nav-link">SELL</a> </button>
+                    <button type="button" class="btn btn-sm"><a href="{{url_for('upload')}}" class="logo-nav-link">SWAP</a></button>
+                </li>
+              <li class=" ms-5">
+                <i class="fa-regular fa-user" style="font-size: 24px; color: #1E1014;"></i>
+                <span style="color: #1E1014;"><a href="{{url_for('user_signup')}}"  class="logo-nav-link">login/register</a></span>
+              </li>
+              <li>
+                <a href="{{url_for('cart')}}" class="fa-solid fa-cart-shopping ms-3  position-relative logo-nav-link" style="font-size: 26px;">
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px;" id="cart_no">0</span>
+                </a>
+                </li>
+            </ul>
+        </div>
+    </div>             
+</div>
+<!-- End - Nav for logo, sign-in/sign-up icon, cart and search bar -->
+
+<!--Start Navbar -->
+<div class="container-fluid px-0" style="margin-top: -2%; margin-bottom: -1%;">
+    <div class="row">
+        <div class="col-lg col-md col-sm-12 col-xs-12">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid navitems">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-3">
+                        <li class="nav-item dropdown">   
+                           <a class="nav-link droplink nav-link all-cat" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                All Categories &nbsp;
+                             <i class="fa-solid fa-bars me-4" style="color: #F0B92D !important;"></i>                             
+                           </a>
+                           <ul class="dropdown-menu help-drop">
+                            <li><a href="#" class="dropdown-item"> Mobile Phones</a></li>
+                            <li><a href="#" class="dropdown-item"> Audio</a></li>
+                            <li><a href="#" class="dropdown-item"> Computers & Tablets</a></li>
+                            <li><a href="#" class="dropdown-item"> Power</a></li>
+                            <li><a href="#" class="dropdown-item"> Wearable Tech</a></li>
+                            <li><a href="#" class="dropdown-item"> Gift &amp; Souvenirs</a></li>
+                            <li><a href="#" class="dropdown-item"> Lifestyle</a></li>
+                        </ul>
+                        </li>
+                    </ul>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-3">
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Mobile Phones</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Audio</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle droplink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Computers & Tablets
+                        </a>
+                        <ul class="dropdown-menu help-drop">
+                          <li><a class="dropdown-item" href="#">New Laptops</a></li>
+                          <li><a class="dropdown-item" href="#">Used Laptops</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="#">Tablets</a></li>
+                        </ul>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle droplink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Power
+                        </a>
+                        <ul class="dropdown-menu help-drop">
+                          <li><a class="dropdown-item" href="#">Power Bank</a></li>
+                          <li><a class="dropdown-item" href="#">Cords & Cables</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="#">Chargers</a></li>
+                        </ul>
+                      </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle droplink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Wearable Tech
+                      </a>
+                      <ul class="dropdown-menu help-drop">
+                        <li><a class="dropdown-item" href="#">Smart Watches</a></li>
+                        <li><a class="dropdown-item" href="#">Accessories</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Others</a></li>
+                      </ul>
+                    </li>
+                      <li class="nav-item">
+                        <a class="nav-link">Gifts & Souvenirs</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link">Lifestyle</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle droplink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Shop
+                        </a>
+                        <ul class="dropdown-menu help-drop">
+                            <li><a href="{{url_for('cart')}}" class="dropdown-item"> Cart</a></li>
+                            <li><a href="#" class="dropdown-item"> Checkout</a></li>
+                            <li><a href="{{url_for('user_account')}}" class="dropdown-item"> My Account</a></li>
+                            <li><a href="wishlist.html" class="dropdown-item"> Wishlist</a></li>
+                            <li><a href="shop-detail.html" class="dropdown-item"> Shop Detail</a></li>
+                        </ul>
+                    </li>
+                    </ul>
+                    
+                  </div>
+                </div>
+              </nav>
+        </div>
+    </div>
+</div>
+</div>
+<!-- End Navbar -->

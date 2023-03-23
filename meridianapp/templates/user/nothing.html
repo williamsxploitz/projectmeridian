@@ -1,0 +1,176 @@
+{% extends "site/layout.html"%}
+
+{% block title %}
+<title>Cart - La Tienda Meridian</title>
+{% endblock %}
+
+
+    <!-- Start Cart  -->
+{% block content%}
+
+<!-- Registration Form  Start-->
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6"style="border-right: #AD343E solid 2px;border-left: #AD343E solid 2px;">
+            <div class="row my-5">
+                <div class="col-md-12">
+                    <h2 style="text-align: center;">Create an Account</h2>
+                </div>
+            </div>
+            <form action="my-account.html" method="post" class="regform">
+                <div class="row my-3">
+                    <div class="col-md-12">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" name="email" placeholder="name@example.com">
+                            <label for="floatingInput">Email address</label>
+                        </div> 
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="fname" placeholder="Name">
+                            <label for="floatingInput">First Name</label>
+                        </div>  
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="lname" placeholder="Name">
+                            <label for="floatingInput">Last Name</label>
+                        </div> 
+                        <div class="form-group">
+                            <label for="fname" class="form-label mb-1 cat-labels">First Name</label>
+                            <input type="text" class="form-control" name="fname" id="fname" placeholder="Enter Last Name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="lname" class="form-label mb-1 cat-labels">Last Name</label>
+                            <input type="text" class="form-control" name="lname" id="lname" placeholder="Enter First Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            <label for="email" class="form-label mb-1 cat-labels">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter First Name" required>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="ppix" class="form-label mb-1 cat-labels">Profile Picture</label>
+                            <span class="cat-label-span"> (optional)</span>
+                            <input type="file" class="form-control" name="ppix" id="ppix" placeholder="Profile Picture">
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="uname" class="form-label mb-1 cat-labels">Username</label>
+                            <input type="text" class="form-control" name="uname" id="uname" placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="pwd" class="form-label mb-1 cat-labels">Password</label>
+                            <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Password">
+                        </div>
+                    </div>
+                </div>  
+                
+                <div class="row my-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="phone" class="form-label mb-1 cat-labels">Phone Number</label>
+                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone Number">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="country" class="form-label mb-1 cat-labels">Country</label>
+                            <input type="text" class="form-control" name="country" id="country" placeholder="Nigeria" readonly>
+                        </div>
+                    </div>
+                </div>  
+                <div class="row my-4">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="add" class="form-label mb-1 cat-labels">Address Line</label>
+                            <input type="text" class="form-control" name="add" id="add" placeholder="Enter Address" required>
+                        </div>
+                    </div> 
+                </div>
+                <div class="row my-4">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="control-label form-label mb-1 cat-labels">
+                                    State of Address
+                                </label>
+                                <select onchange="toggleLGA(this);" name="state" id="state" class="form-control">
+                                    <option value="" selected="selected">- Select -</option>
+                                    <option value="Abia">Abia</option>
+                                    <option value="Adamawa">Adamawa</option>
+                                    <option value="AkwaIbom">AkwaIbom</option>
+                                    <option value="Anambra">Anambra</option>
+                                    <option value="Bauchi">Bauchi</option>
+                                    <option value="Bayelsa">Bayelsa</option>
+                                    <option value="Benue">Benue</option>
+                                    <option value="Borno">Borno</option>
+                                    <option value="Cross River">Cross River</option>
+                                    <option value="Delta">Delta</option>
+                                    <option value="Ebonyi">Ebonyi</option>
+                                    <option value="Edo">Edo</option>
+                                    <option value="Ekiti">Ekiti</option>
+                                    <option value="Enugu">Enugu</option>
+                                    <option value="FCT">FCT</option>
+                                    <option value="Gombe">Gombe</option>
+                                    <option value="Imo">Imo</option>
+                                    <option value="Jigawa">Jigawa</option>
+                                    <option value="Kaduna">Kaduna</option>
+                                    <option value="Kano">Kano</option>
+                                    <option value="Katsina">Katsina</option>
+                                    <option value="Kebbi">Kebbi</option>
+                                    <option value="Kogi">Kogi</option>
+                                    <option value="Kwara">Kwara</option>
+                                    <option value="Lagos">Lagos</option>
+                                    <option value="Nasarawa">Nasarawa</option>
+                                    <option value="Niger">Niger</option>
+                                    <option value="Ogun">Ogun</option>
+                                    <option value="Ondo">Ondo</option>
+                                    <option value="Osun">Osun</option>
+                                    <option value="Oyo">Oyo</option>
+                                    <option value="Plateau">Plateau</option>
+                                    <option value="Rivers">Rivers</option>
+                                    <option value="Sokoto">Sokoto</option>
+                                    <option value="Taraba">Taraba</option>
+                                    <option value="Yobe">Yobe</option>
+                                    <option value="Zamfara">Zamafara</option>
+                                </select>
+                            </div>
+                            <div class="form-group my-3">
+                                <label class="control-label mb-1 cat-labels">LGA of Address</label>
+                                <select name="lga" id="lga" class="form-control select-lga" required>
+                                </select>
+                            </div>
+                        </div>                            
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="submit" class="form-control btn btn-lg hvr-hover" name="regbtn" id="regbtn" value="Create Account">
+                    </div>
+                </div>           
+            </form>
+            <p style="text-align: center;" class="signin-para">
+                Already have and Account? 
+                <a href="{{ url_for('login')}}" id="signin" class="btn hrv-hover">Sign In</a>
+            </p>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+<!-- Registration Form End  -->
+
+{% endblock %}
+
+

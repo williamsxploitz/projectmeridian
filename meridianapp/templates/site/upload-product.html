@@ -1,0 +1,183 @@
+{% extends "site/layout.html" %}
+{% block title %}
+<title>Cart - La Tienda Meridian</title>
+{% endblock %}
+
+
+    <!-- Start Cart  -->
+{% block content%}
+
+<!-- Start Upload Product Form -->
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-xs-12 my-5">
+            <h2 class="prodHead">Enter Product Details</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="container-fluid">
+                <form action="" method="post">
+                <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+                <div class="row my-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="prodName" class="form-label mb-1 cat-labels">
+                                    Product Name / Title
+                                </label>
+                                <input type="text" class="form-control" name="prodName" id="prodName" placeholder="Title">
+                                <span class='cat-label-span'>
+                                    Not more than 150 characters
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="prodDesc" class="form-label mb-1 cat-labels">
+                                    Description
+                                </label>
+                                <textarea type="text" class="form-control" id="prodDesc" placeholder="Description" name="prodDesc" rows="5"></textarea>
+                                <span class='cat-label-span'>
+                                    Can be up to 1000 characters
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="fname" class="form-label mb-1 cat-labels">Product Category</label>
+                                <select name="category" id="category" class="form-control">
+                                    <option value="">Category</option>
+                                    <option value="Mobile Phones">Mobile Phones</option>
+                                    <option value="Speakers">Speakers</option>
+                                    <option value="Headphones">Headphones</option>
+                                    <option value="Computers">Computers</option>
+                                    <option value="Drones and Camera">Drones and Camera</option>
+                                    <option value="Accessories">Accessories</option>
+                                    <option value="Power">Power</option>
+                                    <option value="Charges">Charges</option>
+                                    <option value="Sockets and Plugs">Sockets and Plugs</option>
+                                    <option value="Kitchen">Kitchen</option>
+                                    <option value="Lifestyle">Lifestyle</option>
+                                    <option value="Smart Watches">Smart Watches</option>
+                                    <option value="Wearable Tech">Wearable Tech</option>
+                                    <option value="Kids and Adult Tablets">Kids and Adult Tablets</option>
+                                    <option value="TV and Home">TV and Home</option>
+                                    <option value="RingLights and Tripods">RingLights and Tripods</option>
+                                    <option value="Corporate Gifts abd Souvenirs">Corporate Gifts abd Souvenirs</option>
+                                </select>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="control-label form-label mb-1 cat-labels">
+                                    Price
+                                </label>
+                                <input type="number" class="form-control" name="prodAmt" id="prodAmt" placeholder="&#8358; Amount">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label form-label mb-1 cat-labels" for="discAmt">
+                                    Discount
+                                </label>
+                                <input type="number" class="form-control" name="discount" id="discount" placeholder="%">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="control-label form-label mb-1 cat-labels" for="discAmt">
+                                    Discounted Price
+                                </label>
+                                <input type="number" class="form-control" name="discAmt" id="discAmt" placeholder="Amount" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label form-label mb-1 cat-labels">
+                                    SKU
+                                </label>
+                                <input type="text" class="form-control" name="sku" id="sku" placeholder="SKU" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label form-label mb-1 cat-labels">
+                                    Quantity
+                                </label>
+                                <input type="number" class="form-control" name="qty" id="qty" placeholder="Quantity Available">
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="row my-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label form-label mb-1 cat-labels">
+                                    Swap Possible?
+                                </label>
+                                <select name="Swap" id="swap" class="form-control">
+                                    <option value="">Select an Option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label form-label mb-1 cat-labels">
+                                    Quantity
+                                </label>
+                                <input type="number" class="form-control" name="qty" id="qty" placeholder="Quantity Available">
+                            </div>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="container">                                           
+                <div class="row my-3">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="loginPwd" class="form-label mb-1 cat-labels">
+                                Add Photo
+                            </label><br>
+                            <span class='cat-label-span'>
+                                (Add at least 2 photos for this category, first picture is the title picture)
+                            </span>
+                            <input type="file" multiple class="form-control" name="prodPix" id="prodPix" placeholder="Upload at least 2 photos">
+                            <span class='cat-label-span'>
+                                Each picture must not exceed 5 MB. Supported formats are *.jpg and *.png
+                            </span>
+                        </div>
+                    </div>
+                </div>                                      
+                <div class="row my-3">
+                    <div class="col-md-12" id="photoBox"></div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-md-4"><img src="{{url_for('static',filename='img/headset.jpg')}}" alt=""  class="photoBoxsm"></div>
+                    <div class="col-md-4" class="photoBoxsm">second</div>
+                    <div class="col-md-4" class="photoBoxsm">third</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Upload Product Form -->
+
+{% endblock %}
+
+{% block lga_scripts %}
+{% endblock %}
+
+
+

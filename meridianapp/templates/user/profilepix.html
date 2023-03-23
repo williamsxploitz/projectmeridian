@@ -1,0 +1,78 @@
+{% extends "user/profile-layout.html" %}
+
+{% block Pagetitle %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12">            
+            <p style="font-size: 10px;">
+                <span><a href="#" class="sidelink">Home > &nbsp;</a></span>
+                <span><a href="#" class="sidelink">My Account > &nbsp;</a></span>
+                <span><a href="#" class="sidelink" style="color:#AD343E !important">Profile &nbsp;</a></span>
+                <span></span>
+                <span></span>
+            </p>
+        </div>
+        <div class="col-md-12">            
+            <h4 style="letter-spacing: 10px; word-spacing: 10px;">MY PROFILE</h4>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- Page Title and link string -->
+
+{% block session_name %}
+{% if session.get('user') != None %}
+Hi, <a href="{{url_for('user_account')}}"  class="logo-nav-link me-4" style="color:#AD343E; font-weight: 700;">
+    {{ details.username.upper()}}
+</a>
+<a href="{{url_for('user_logout')}}"  class="logo-nav-link btn btn-dark btn-sm">
+    logout
+</a>
+{% else %}
+<a href="{{url_for('user_signup')}}"  class="logo-nav-link">
+    login/register
+</a>
+</span>
+
+  {% endif %}
+  {% endblock %}
+
+      <!-- End sidebar -->
+{% block maincontent %}
+      <!-- Content -->
+      <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4" style="background-color:rgb(245, 242, 242);">
+          <h2 class="h3 text-center mt-2" style="color:#AD343E;">Profile</h2> <hr>
+          <div class="row">
+            {%with msg=get_flashed_messages()%}
+              {%if msg%}
+                {%for m in msg%}
+                  {{m|safe}}
+                {%endfor%}
+              {%endif%}
+            {%endwith%}
+        </div>
+        <div class="content" style="background-color: white;padding:3em">
+            <h3>Change Profile Picture</h3>
+          
+            <form method="post" enctype="multipart/form-data" action="/profile/picture/{{deets.user_id}}">
+                <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+              <div class="form-group row">
+                  <label for="" class="col-md-2">Select File</label>
+                  <input type="file" name="pix" class="col-md-6">
+                  <input type="submit" value="Upload" class="btn btn-warning col-md-4">
+              </div>
+            </form>
+           </div>
+   
+
+</div>
+</main>
+{% endblock %}
+
+{% block morescripts %}
+<script>
+    $(document).ready(function(){
+
+    })
+</script>
+{% endblock %}

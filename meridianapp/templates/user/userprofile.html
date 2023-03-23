@@ -1,0 +1,209 @@
+{% extends "user/profile-layout.html" %}
+
+{% block Pagetitle %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12">            
+            <p style="font-size: 10px;">
+                <span><a href="#" class="sidelink">Home > &nbsp;</a></span>
+                <span><a href="#" class="sidelink">My Account > &nbsp;</a></span>
+                <span><a href="#" class="sidelink" style="color:#AD343E !important">Profile &nbsp;</a></span>
+                <span></span>
+                <span></span>
+            </p>
+        </div>
+        <div class="col-md-12">            
+            <h4 style="letter-spacing: 10px; word-spacing: 10px;">MY PROFILE</h4>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- Page Title and link string -->
+
+{% block session_name %}
+{% if session.get('user') != None %}
+Hi, <a href="{{url_for('user_account')}}"  class="logo-nav-link me-4" style="color:#AD343E; font-weight: 700;">
+    {{ details.username.upper()}}
+</a>
+<a href="{{url_for('user_logout')}}"  class="logo-nav-link btn btn-dark btn-sm">
+    logout
+</a>
+{% else %}
+<a href="{{url_for('user_signup')}}"  class="logo-nav-link">
+    login/register
+</a>
+</span>
+
+  {% endif %}
+  {% endblock %}
+
+      <!-- End sidebar -->
+{% block maincontent %}
+      <!-- Content -->
+      <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4" style="background-color:rgb(245, 242, 242);">
+          <h2 class="h3 text-center mt-2" style="color:#AD343E;">Profile</h2> <hr>
+          <div class="row">
+            {%with msg=get_flashed_messages()%}
+              {%if msg%}
+                {%for m in msg%}
+                  {{m|safe}}
+                {%endfor%}
+              {%endif%}
+            {%endwith%}
+        </div>
+        <form action="{{url_for('profile')}}" method="post" class="regform">
+                <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+          <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                    {% if details.profile_px !='' and details.profile_px != None %}
+                    <img src="{{ url_for('static',filename='/img/uploads/'+details.profile_px)}}" alt="Profile Picture" width="100%" class="rounded-circle">
+                    {% else %}
+                    <img src="{{ url_for('static',filename='img/avatar.png')}}" alt="Picture avatar" width="100%" class="rounded-circle">
+                    {% endif%}
+                  
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                <p class="form-control" placeholder="Username" id="uname" readonly style="border: 1px solid black;">{{details.username}}</p>
+                                <label for="floatingInput">Username</label>
+                            </div> 
+                
+                            <div class="form-floating">
+                                <input type="email" class="form-control" name="email" placeholder="name@example.com" value="{{details.email}}" id="email" readonly>
+                                <label for="floatingInput">Email address</label>
+                            </div>
+                            <div class="mb-3 form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="toggleEmail">
+                                <label class="form-check-label" for="toggleEmail">Edit Email</label>
+                            </div> 
+                
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="pnumber" placeholder="Phone Number" value="{{details.phone}}" id="phone" readonly>
+                                <label for="floatingInput">Phone Number</label>
+                            </div> 
+                            <div class="mb-3 form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="togglePhone">
+                                <label class="form-check-label" for="togglePhone">Edit Phone Number</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-floating">
+                <input type="text" class="form-control" name="fname" placeholder="Name" value="{{details.firstname}}" id="fname" readonly>
+                <label for="floatingInput">First Name</label>
+            </div>  
+            <div class="mb-3 form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="toggleFname">
+                <label class="form-check-label" for="toggleFname">Edit First Name</label>
+            </div>
+
+            <div class="form-floating">
+                <input type="text" class="form-control" name="lname" placeholder="Name" value="{{details.lastname}}" id="lname" readonly>
+                <label for="floatingInput">Last Name</label>
+            </div>
+            <div class="mb-3 form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="toggleLname">
+                <label class="form-check-label" for="togleLname">Edit Last Name</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Password" hidden>
+            </div> 
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="submit" class="form-control btn btn-lg hvr-hover" id="regbtn" value="Edit Profile Details">
+                </div>
+            </div>           
+        </form>
+   
+
+</div>
+</main>
+{% endblock %}
+
+{% block morescripts %}
+<script>
+    $(document).ready(function(){
+
+      $("#state").change(function(){
+          var stateid = $(this).val()
+          $.ajax({
+              type:"GET",
+              url:"/load_lga/"+stateid,
+              success:function(resp){
+                  $("#mylga").html(resp)
+                  console.log(resp)
+              }
+          })
+        })
+
+        $("#toggleEmail").click(function(){
+        var clicked = $("#toggleEmail").prop("checked");
+
+        if(clicked == true){
+            $("#email").removeAttr("readonly");
+        }else{
+            $("#email").attr("readonly", "readonly");
+        }
+       })
+
+       $("#toggleUname").click(function(){
+        var clicked = $("#toggleUname").prop("checked");
+
+        if(clicked == true){
+            $("#uname").removeAttr("readonly");
+        }else{
+            $("#uname").attr("readonly", "readonly");
+        }
+       })
+
+       $("#togglePhone").click(function(){
+        var clicked = $("#togglePhone").prop("checked");
+
+        if(clicked == true){
+            $("#phone").removeAttr("readonly");
+        }else{
+            $("#phone").attr("readonly", "readonly");
+        }
+       })
+
+       $("#toggleFname").click(function(){
+        var clicked = $("#toggleFname").prop("checked");
+
+        if(clicked == true){
+            $("#fname").removeAttr("readonly");
+        }else{
+            $("#fname").attr("readonly", "readonly");
+        }
+       })
+
+       $("#toggleLname").click(function(){
+        var clicked = $("#toggleLname").prop("checked");
+
+        if(clicked == true){
+            $("#lname").removeAttr("readonly");
+        }else{
+            $("#lname").attr("readonly", "readonly");
+        }
+       })
+
+       $("#toggleAdd").click(function(){
+        var clicked = $("#toggleAdd").prop("checked");
+
+        if(clicked == true){
+            $("#add").removeAttr("readonly");
+        }else{
+            $("#add").attr("readonly", "readonly");
+        }
+       })
+
+      
+    })
+</script>
+{% endblock %}

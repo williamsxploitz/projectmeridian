@@ -1,0 +1,103 @@
+{% extends "site/layout.html" %}
+{% block title %}
+<title>Contact Us - La Tienda Meridian</title>
+{% endblock %}
+
+
+    <!-- Start Cart  -->
+{% block content%}
+
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Contact Us</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{url_for('home')}}">Home</a></li>
+                        <li class="breadcrumb-item active"> Contact Us </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+
+    <!-- Start Contact Us  -->
+    <div class="contact-box-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                    <div class="contact-info-left">
+                        <h2>CONTACT INFO</h2>
+                        <ul>
+                            <li>
+                                <p><i class="fas fa-map-marker-alt"></i>Address: School of Transport, <br>Lagos State University, Ojo<br> 102101 Lagos. </p>
+                            </li>
+                            <li>
+                                <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:+2348136560110">+234-813-6560-110</a></p>
+                            </li>
+                            <li>
+                                <p><i class="fas fa-envelope"></i>Email: <a href="mailto:latiendameridian@gmail.com">latiendameridian@gmail.com</a></p>
+                            </li>
+                        </ul>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15857.904013898155!2d3.2028049!3d6.4612177!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b81b47ce16f4b%3A0x365ebfeabddfac01!2sLa%20Tienda%20Meridian!5e0!3m2!1sen!2sng!4v1675031406142!5m2!1sen!2sng" width="100%" height="400px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="contact-form-right">
+                        <h2 style="color: #AD343E;"><span style="color: #000;">PHONE LINEs: </span><hr>+234-813-656-0110 <br>+234-901-593-0131</h2>
+                        <h2 class="mt-5">GET IN TOUCH</h2><hr>
+                        {% with msg=get_flashed_messages()%}
+                            {%if msg%}
+                                {%for message in msg%}
+                                    {{message|safe}}
+                                {%endfor%}
+                            {%endif%}
+                        {%endwith%}
+                        <form id="contactForm" action="/meridian/contact-us" method="post">
+                            <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required data-error="Please enter your name">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Your Email" id="email" class="form-control" name="email" required data-error="Please enter your email">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required data-error="Please enter your Subject">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="message" name="message" placeholder="Your Message" rows="4" data-error="Write your message" required></textarea>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                    <div class="submit-button text-center">
+                                        <button class="btn hvr-hover" id="submit" type="submit">Send Message</button>
+                                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Contact Us -->
+
+{% endblock %}

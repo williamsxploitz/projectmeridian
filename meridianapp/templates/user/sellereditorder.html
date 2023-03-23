@@ -1,0 +1,140 @@
+{% extends "user/profile-layout.html" %}
+
+{% block Pagetitle %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12">            
+            <p style="font-size: 10px;">
+                <span><a href="#" class="sidelink">Home > &nbsp;</a></span>
+                <span><a href="#" class="sidelink">My Account > &nbsp;</a></span>
+                <span><a href="#" class="sidelink" style="color:#AD343E !important">Profile &nbsp;</a></span>
+                <span></span>
+                <span></span>
+            </p>
+        </div>
+        <div class="col-md-12">            
+            <h4 style="letter-spacing: 10px; word-spacing: 10px;">MY PROFILE</h4>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- Page Title and link string -->
+
+{% block session_name %}
+{% if session.get('user') != None %}
+Hi, <a href="{{url_for('user_account')}}"  class="logo-nav-link me-4" style="color:#AD343E; font-weight: 700;">
+    {{ details.username.upper()}}
+</a>
+<a href="{{url_for('user_logout')}}"  class="logo-nav-link btn btn-dark btn-sm">
+    logout
+</a>
+{% else %}
+<a href="{{url_for('user_signup')}}"  class="logo-nav-link">
+    login/register
+</a>
+</span>
+
+  {% endif %}
+  {% endblock %}
+
+      <!-- End sidebar -->
+{% block maincontent %}
+      <!-- Content -->
+      <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4" style="background-color:rgb(245, 242, 242);">
+          <h2 class="h3 text-center mt-2" style="color:#AD343E;">Edit Order Status</h2> <hr>
+          <div class="row">
+            {%with msg=get_flashed_messages()%}
+              {%if msg%}
+                {%for m in msg%}
+                  {{m|safe}}
+                {%endfor%}
+              {%endif%}
+            {%endwith%}
+        </div>
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table table-striped table-sm b">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Product Name</th>
+                      <th scope="col">Amount</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Total</th>
+                      <th scope="col">SKU</th>
+                      <th scope="col">Order Ref</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Order Date</th>
+                      <th scope="col">Due Date</th>
+                      <th scope="col">commission</th>
+                      <th scope="col">Payout</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {%if orders%}
+                    <tr style="vertical-align: middle;">
+                          <td>{{orders.seller_order_id}}</td>
+                          <td> <a href="{{url_for('site_productpage',prodid=orders.prod_id)}}">{{orders.prod_name}}</a></td>
+                          {%if orders.amount !=None%}
+                          <td>&#8358;{{orders.amount}}</td>
+                          {%else%}
+                          <td>&#8358;0</td>
+                          {%endif%}
+                          <td>{{orders.qty}}</td>
+                          {#{% set grandtotal=orders.qty*orders.amount%}#}
+                          {%if orders.total !=None%}
+                          <td>&#8358;{{orders.total}}</td>
+                          {%else%}
+                          <td>&#8358;0</td>
+                          {%endif%}
+                          <td>{{orders.prod_sku}}</td>
+                          <td>{{orders.prodref}}</td>
+                          <td>{{orders.status}}</td>
+
+                          {%set olddate = orders.order_date.strftime("%d-%m-%Y %H:%M")%}
+                          <th scope="">{{olddate}}</th>
+                          {%set newdate = orders.due_date.strftime("%d-%m-%Y %H:%M")%}
+                          <th scope="" class="text-danger">{{newdate}}</th>
+                          {#{%set commission_percent=5/100%}
+                          {%set commission = grandtotal*commission_percent%}#}
+                          <th scope="" class="text-danger">{{orders.commission}}</th>
+                          {#{%set payout= grandtotal-commission%}#}
+                          <th scope="" class="text-danger">{{orders.payout}}</th>
+                    </tr>
+                    {%else%}<p class="alert alert-danger">Nothing to see</p>
+                  {%endif%}
+                </tbody>
+            </table>
+
+        <h6 class="mt-5 text-center text-primary fw-bolder">Please click <span class="text-success">"ACCEPT"</span> if this product is readily available for pick-up within the next 72hrs. On click of <span class="text-danger">"CANCEL"</span>, the order would be cancelled.</h6>
+
+      <div class="row mt-5">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <form action="/meridian/sellers/print-order-details/{{seller_order_indb.seller_order_id}}" method="post">
+            <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+            <select name="status" id="status" class="form-control mb-3">
+                <option value="accepted" class="bg-success">ACCEPT</option>
+                <option value="cancelled" class="bg-danger">CANCEL</option>
+            </select>
+            <p><button class="btn hvr-hover w-100" id="subBtn">Submit</button></p>
+          </form>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+            <!-- End View Categories -->
+            
+            </div>
+        </div>
+
+</div>
+</main>
+{% endblock %}
+
+{% block morescripts %}
+<script>
+    $(document).ready(function(){
+       
+    })
+</script>
+{% endblock %}

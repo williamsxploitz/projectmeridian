@@ -1,0 +1,125 @@
+{% extends 'admin/adminlayout.html' %}
+
+
+
+    <!-- Site Metas -->
+    {% block title %}
+    <title>Orders Details - Meridian Admin</title>
+    {% endblock %}
+
+    {% block canvas %}
+    {% endblock %}
+
+    {% block top_content %}
+    <!-- Content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Payment Details</h1>
+      </div>
+      {% endblock %}
+
+
+  
+
+
+      {% block main_content %}
+      <h4 class="h3">Order Payment Details</h4>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col">S/N</th>
+              <th scope="col">Product Name</th>
+              <th scope="col">SKU</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Total</th>
+              <th scope="col">postedby</th>
+              <th scope="col">order_ref</th>
+              <th scope="col">order_date</th>
+              <th scope="col">due_date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%if deetsid%}
+              {%for orderdeets in deetsid%}
+                <tr>
+                  <td>{{loop.index}}</td>
+                  <td id="prodName">{{orderdeets.theproduct.name[0:60]}}</td>
+                  <td id="prodSku">{{orderdeets.theproduct.sku}}</td>
+                  <td>&#8358;{{"{0:,.2f}".format(orderdeets.amount)}}</td>
+                  <td id="prodAmt" hidden>{{orderdeets.amount}}</td>
+                  <td id="prodQty">{{orderdeets.qty}}</td>
+                  <td>&#8358;{{"{0:,.2f}".format(orderdeets.qty*orderdeets.amount)}}</td>
+                  <td id="prodTotAmt" hidden>{{orderdeets.qty*orderdeets.amount}}</td>
+                  <td id="prodPostedBy">{{orderdeets.prod_postedby}}</td>
+                  <td id="prodRef">#{{orderdeets.theorder.ref_no}}</td>
+                  <td id="prodRef" hidden>{{orderdeets.theorder.ref_no}}</td>
+
+                  {%set date = orderdeets.theorder.date%}
+                  {%set olddate = date.strftime("%d-%m-%Y %H:%M")%}
+                  <th>{{olddate}}</th>
+                  <th id="prodDate" hidden>{{date}}</th>
+                  {%set newdate = date+add3days%}
+                  <th id="dueDate" hidden>{{date+add3days}}</th>
+                  <th scope="col" class="text-danger">{{newdate.strftime("%d-%m-%Y %H:%M")}}</th>
+                </tr>
+              {%endfor%}
+            {%endif%}
+          </tbody>
+        </table>
+        <!-- <button id="btn" type="button" class="btn btn-danger">Populate</button> -->
+       <hr><hr>
+       </div>
+    </main>
+    {% endblock %}
+  </div>
+</div>
+
+
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
+  </body>
+</html>
+
+{% block more_scripts %}
+<script>
+  $(document).ready(function(){
+
+  $("#btn").click(function(){
+  var prodName = $("#prodName").val();
+  var prodSku = $("#prodSku").val();
+  var prodAmt = $("#prodAmt").val();
+  var status = "pending";
+  var qty = $("#prodQty").val();
+  var prodTotAmt = $("#prodTotAmt").val();
+  var prodPostedBy = $("#prodPostedBy").val();
+  var prodRef = $("#prodRef").val();
+  var prodDate = $("#prodDate").val();
+  var dueDate = $("#dueDate").val();
+
+  var data2send = "product_name="+prodName+"&sku="+prodSku+"&amt="+prodAmt+"&order_status="+status+"&totalamt="+prodTotAmt+"&posted_by="+prodPostedBy+"&ref="+prodRef+"&date="+prodDate+"&due_date="+dueDate+"&quant="+qty
+
+  $.ajax({
+    url: "/meridian/add-to-wallet",
+    data: data2send,
+    type:"GET",
+    dataType:'text',
+
+    success:function(rsp){
+      console.log(rsp)
+    },
+    error:function(err){
+      console.log(err)
+    }
+  })
+})
+
+
+  
+})
+</script>
+{% endblock %}

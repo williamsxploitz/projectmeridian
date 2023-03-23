@@ -1,0 +1,64 @@
+{% extends "site/layout.html" %}
+{% block title %}
+<title>Home - La Tienda Meridian</title>
+{% endblock %}
+
+
+    <!-- Start Cart  -->
+{% block content%}
+
+
+    <!-- Start Products  -->
+    <div class="products-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title-all text-center">
+                        <h1>{{catname.name}}</h1><hr>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row special-list mb-4">
+        {% if data%}
+        {% for proditems in data %}
+        <div class="col-lg-3 col-md-6 special-grid best-seller mb-5">
+            <div class="card flex flex-wrap text-center ">
+                <div id="carouselExampleCaptions" class="carousel slide mb-3" data-bs-ride="carousel">
+                    <div class="carousel-inner">                        
+                        {% for img in proditems.the_image %}
+                        <div class="carousel-item active">
+                            <a href="{{url_for('site_productpage',prodid=proditems.product_id)}}"><img src="{{url_for('static',filename='/productuploads/'+img.image_name)}}"alt="{{img.image_name}}" class="card-img-top" height="350vh" width="100vw"> </a>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+                <div class="mask-icon">
+                    <a class="cart" href="#">Add to Cart</a>
+                </div>
+                <div class="mask-icon1">
+                    <a class="view" href="{{url_for('site_productpage',prodid=proditems.product_id)}}">View More</a>
+                </div>
+            </div>
+            <div class="why-text card-body">
+                <h4>{{proditems.name.upper()}}</h4>
+                <h5 style="color:#AD343E"> &#8358; {{proditems.price}}</h5>
+            </div>
+        </div>
+        {% endfor %}
+        {%else%}
+        <div class="col-md-12">
+            <p class="h5" style="color:#AD343E">There are no products available in this category, please check back later.</p>
+        </div>
+        {% endif %}
+
+            </div>
+        </div>
+    </div>
+    <!-- End Products  -->
+ 
+
+
+
+   
+{% endblock %}

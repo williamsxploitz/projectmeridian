@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Site Metas -->
+    {% block title %}
+    <title>Admin - La Tienda Meridian</title>
+    {% endblock %}
+    <meta name="keywords" content="quality,goods, gadgets, meridian, gadgets in lagos, quality gadgets, premium, best price, buy, sell, swap, best, authentic">
+    <meta name="description" content="La Tienda Meridian is a one-stop gadgets store where users can buy, sell and even swap old gadgets for new ones. We have the best prices and our gadgets are premium and authentic.">
+    <meta name="author" content="Williams Xploitz">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="{{url_for('static',filename='img/meridian/favicon.ico')}}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{url_for('static', filename='img/meridian/favicon.ico')}}">
+    
+
+    
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/stylez.css')}}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/responsive.css')}}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/custom.css')}}">
+	<!-- Font Awesome-->
+    <link href="{{url_for('static', filename='fawesome/css/all.css')}}" rel="stylesheet" type="text/css">
+	<!-- Animate CSS-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/animate.min.css')}}">
+    
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
+    {% block more_styles %}
+    {% endblock %}
+
+    
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/dashboard.css')}}" rel="stylesheet">
+  </head>
+  <body>
+    
+ 
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/admin/dashboard">Admin - La Tienda Meridian</a>
+  <a class="navbar-brand col-md-4 col-lg-4 me-0 px-3 fs-6" href="/" target="_blank">Main Site - La Tienda Meridian</a>
+</header>
+
+{% block nav %}
+<header class="p-3 mb-3 border-bottom">  
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+        <ul class="nav col-8 offset-4 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="{{url_for('view_users')}}" class="nav-link px-2 link-secondary">Customers</a></li>
+          <li><a href="{{url_for('view_products')}}" class="nav-link px-2 link-dark">Inventory</a></li>
+          <li><a href="{{url_for('view_orders')}}" class="nav-link px-2 link-dark">Transactions</a></li>
+          <li><a href="{{url_for('view_payments')}}" class="nav-link px-2 link-dark">Payments</a></li>
+        </ul>
+
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 justify-content-center" role="search">
+          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+        </form>
+
+        <div class="dropdown text-end">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small">
+            {% block loggedin %}
+            <li><a class="dropdown-item" href="#" style="font-weight: 700;">{{deets.admin_name}}</a></li><hr>
+            {% endblock %}
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/admin/logout">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+  {% endblock %}
+
+  <!-- sidebar -->
+  {% block sidebar %}
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3 sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{url_for('admin_dashboard')}}">
+              <span data-feather="home" class="align-text-bottom"></span>
+              Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('view_orders')}}">
+              <span data-feather="file" class="align-text-bottom"></span>
+              Orders
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('view_products')}}">
+              <span data-feather="shopping-cart" class="align-text-bottom"></span>
+              Products
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('product_categories')}}">
+              <span data-feather="layers" class="align-text-bottom"></span>
+              Categories
+            </a>
+          </li>          
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('view_users')}}">
+              <span data-feather="users" class="align-text-bottom"></span>
+              Customers
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('view_payments')}}">
+              <span class="align-text-bottom fa-regular fa-money-bill-1"></span>
+              &nbsp; Payment
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('contactus_messages')}}">
+              <span class="fa-regular fa-envelope align-text-bottom"></span>
+              &nbsp; Messages
+            </a>
+          </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+          <span>Saved reports</span>
+          <a class="link-secondary" href="#" aria-label="Add a new report">
+            <span data-feather="plus-circle" class="align-text-bottom"></span>
+          </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text" class="align-text-bottom"></span>
+              Current month
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text" class="align-text-bottom"></span>
+              Last quarter
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text" class="align-text-bottom"></span>
+              Social engagement
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text" class="align-text-bottom"></span>
+              Year-end sale
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- End sidebar -->
+    {% endblock %}
+
+
+    {% block top_content %}
+    <!-- Content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar" class="align-text-bottom"></span>
+            This week
+          </button>
+        </div>
+      </div>
+      {% endblock %}
+
+      {% block canvas %}
+      {% endblock %}
+
+      {% block main_content %}
+
+      <div class="my-account-box-main">
+        <div class="container">
+            <div class="my-account-page">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="account-box">
+                            <div class="service-box">
+                                <div class="service-icon">
+                                    <a href="{{url_for('view_orders')}}"><i class="fa-solid fa-boxes-packing"></i></a>
+                                </div>
+                                <div class="service-desc">
+                                    <h4>All Orders</h4>
+                                    <h2 class="bg-warning text-dark">{{orders|count}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="account-box">
+                            <div class="service-box">
+                                <div class="service-icon">
+                                    <a href="{{url_for('view_completedorders')}}"><i class="fa-solid fa-box-open"></i> </a>
+                                </div>
+                                <div class="service-desc">
+                                    <h4>Fulfilled Orders</h4>
+                                    <h2 class="bg-warning text-dark">{{completed_orders|count}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="account-box">
+                            <div class="service-box">
+                                <div class="service-icon">
+                                    <a href="{{url_for('view_pendingorders')}}"> <i class="fa-solid fa-box-archive"></i> </a>
+                                </div>
+                                <div class="service-desc">
+                                    <h4>Pending Orders</h4>
+                                    <h2 class="bg-danger text-dark">{{pending_orders|count}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="account-box">
+                            <div class="service-box">
+                                <div class="service-icon">
+                                    <a href="{{url_for('product_categories')}}"> <i class="fa-solid fa-layer-group"></i> </a>
+                                </div>
+                                <div class="service-desc">
+                                    <h4>Product Category</h4>
+                                    <h2 class="bg-warning text-dark">{{prod_cat|count}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                      <div class="account-box">
+                          <div class="service-box">
+                              <div class="service-icon">
+                                  <a href="{{url_for('view_products')}}"> <i class="fa-solid fa-basket-shopping"></i> </a>
+                              </div>
+                              <div class="service-desc">
+                                  <h4>Products</h4>
+                                  <h2 class="bg-warning text-dark">{{prod|count}}</h2>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="account-box">
+                            <div class="service-box">
+                                <div class="service-icon">
+                                    <a href="{{url_for('view_outofstock_products')}}"> <i class="fa-solid fa-layer-group"></i> </a>
+                                </div>
+                                <div class="service-desc">
+                                    <h4>Out of Stock</h4>
+                                    <h2 class="bg-danger text-dark">{{theprodqty|count}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="account-box">
+                            <div class="service-box">
+                                <div class="service-icon">
+                                    <a href="{{url_for('view_users')}}"> <i class="fa-solid fa-people-group"> </i> </a>
+                                </div>
+                                <div class="service-desc">
+                                    <h4>Registered Users</h4>
+                                    <h2 class="bg-warning text-dark">{{users|count}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="account-box">
+                            <div class="service-box">
+                                <div class="service-icon">
+                                    <a href="#"><i class="fa-regular fa-credit-card"></i></a>
+                                </div>
+                                <div class="service-desc">
+                                    <h4>Total Inflow</h4>
+                                    {%if payment_total[0]!=None%}
+                                    <h2 class="bg-warning text-dark">&#8358; {{"{0:,.0f}".format(payment_total[0])}} {#{payment_total[0]}#}</h2>
+                                    {%else%}
+                                    <h2 class="bg-warning text-dark">&#8358; 0</h2>
+                                    {%endif%}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                      <div class="account-box">
+                          <div class="service-box">
+                              <div class="service-icon">
+                                  <a href="#"> <i class="fa-solid fa-money-bill-1"></i></a>
+                              </div>
+                              <div class="service-desc">
+                                  <h4>Pending Payments</h4>
+                                  <h2 class="bg-danger text-dark">&#8358; 100,000,000 </h2>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-4 col-md-12">
+                    <div class="account-box">
+                        <div class="service-box">
+                            <div class="service-icon">
+                                <a href="{{url_for('contactus_messages_unread')}}"><i class="fa-regular fa-envelope"></i></a>
+                            </div>
+                            <div class="service-desc">
+                                <h4>All Messages</h4>
+                                <h2 class="bg-warning text-dark">{{pending_msg|count}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-12">
+                      <div class="account-box">
+                          <div class="service-box">
+                              <div class="service-icon">
+                                  <a href="{{url_for('contactus_messages_unread')}}"><i class="fa-solid fa-comment-slash"></i></a>
+                              </div>
+                              <div class="service-desc">
+                                  <h4>Pending Messages</h4>
+                                  <h2 class="bg-danger text-dark">{{pending_msg|count}}</h2>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Content  -->
+    {% endblock %}
+  </div>
+</div>
+
+
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
+
+    {% block more_scripts %}
+    {% endblock %}
+
+  </body>
+</html>

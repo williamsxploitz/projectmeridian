@@ -1,0 +1,141 @@
+{% extends "site/layout.html" %}
+
+{% block title %}
+    <title>About - La Tienda Meridian</title>
+{% endblock %}
+
+{% block content%}
+<!-- About Us Div -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg col-md col-sm-12 col-xs-12">
+            <img src="{{url_for('static',filename='img/meridian/banner_quality.jpg')}}" alt="Shop Quality" class="img-fluid  pt-5">
+        </div>
+    </div><hr>
+    <!-- About Title  -->
+    <div class="row">
+        <div class="col-lg col-md col-sm-12 col-xs-12">
+            <h1 class="titlehead">About La Tienda Meridian</h1>
+        </div>
+    </div><hr>
+    <!-- About Contents  -->
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 aboutimg-div">
+            <div class="row my-5">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <img src="{{url_for('static',filename='img/meridian/logo.jpg')}}" alt="Meridian Logo" class="img-fluid aboutimg">
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 about-para">                    
+                    <p>                
+                        Since our first day in business, La Tienda Meridian has been offering customers the best selection of products at unbeatable prices. Our store has become synonymous with quality, and we ensure a continuous variety of fantastic merchandise along with unique limited edition and seasonal items that fit any budget. 
+                    </p>
+                    <p>
+                        We founded this business with one goal in mind: providing a high-quality, smart, and reliable online store. Our passion for excellence has driven us from the beginning and continues to drive us into the future. We know that every product counts, and strive to make the entire shopping experience as rewarding as possible. Check us out and start shopping today!
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 about-para">                    
+                    <p>
+                        Consequently, the idea behind the name MERIDIAN came from our desire and vision to be at the top of the mountain (Meridian, in this context, means “the highest level or degree attainable or the highest stage of development” with synonyms like Zenith, Pinnacle, Peak, Perfection, Summit, etc). With this in mind, our sole aim is to serve premium goods and relevant services that all stakeholders would derive utmost utility from.
+                    </p>
+                    <p>
+                        In addition, we are a one-stop gadget and general merchandise store, that offers wholesale and retail sales deals. We are committed to providing our stakeholders with premium mobile and smart gadgets, phone and computer accessories, health and fitness gadgets, corporate gifts and souvenirs, and related services; all at the best prices possible, and with top-notch professionalism.
+                    </p>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <img src="{{url_for('static',filename='img/meridian/banner.jpg')}}" alt="Meridian Ad" class="img-fluid aboutimg">
+                </div>
+            </div>
+            <!-- <picture>
+                <source media="(min-width: 768px)" srcset="img/meridian/JBL.jpg">
+                <source media="(max-width: 1024px )" srcset="" sizes="img/meridian/JBL.jpg">
+                <source media="(min-width: )" srcset="" type="image/">
+            </picture> -->
+        </div><hr>
+
+        <!-- Vision and Mission Statements, Core Value, Colors, etc -->
+
+        <div class="col-md-12 col-sm-12 col-xs-12 my-5">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h3 class="statement-title mb-3">
+                        <i class="fa-solid fa-plane-departure me-3" style="color: #F0B92D;"></i>
+                        VISION STATEMENT
+                    </h3>
+                    <p class="statement-para px-5">
+                        To be an outstanding household general merchandise store(s) offering premium goods and services to all stakeholders at the best price possible.
+                    </p>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h3 class="statement-title mb-3">
+                        <i class="fa-solid fa-bullseye me-3" style="color: #F0B92D;"></i>
+                        MISSION STATEMENT
+                    </h3>
+                    <p class="statement-para px-5">
+                        To consistently source, market, and deliver premium, diversified, essential, and affordable goods, and services from authentic brands in order to satisfy all stakeholders through operational excellence, skilled and dedicated workforce, and effective partnership.
+                    </p>
+                </div>
+            </div><hr>
+            <div class="row my-5">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h3 class="statement-title mb-3">
+                        <i class="fa-solid fa-star me-3" style="color: #F0B92D;"></i>
+                        CORE VALUES
+                    </h3>
+                    <P class="statement-para">
+                        <span style="margin-right:20%" class=" span-para"><strong>M</strong>UTUALITY</span>
+                        <span><strong>D</strong>IVERSITY</span> 
+                    </P>
+                    <P class="statement-para">
+                        <span style="margin-right:20%" class=" span-para"><strong>E</strong>XCELLENCE</span>
+                        <span><strong>I</strong>NTEGRITY</span> 
+                    </P>
+                    <P class="statement-para">
+                        <span style="margin-right:20%" class=" span-para"><strong>R</strong>ELIABILITY</span>
+                        <span><strong>A</strong>UTHENTICITY</span> 
+                    </P>
+                    <P class="statement-para">
+                        <span style="margin-right:20%" class=" span-para"><strong>I</strong>NNOVATION</span>
+                        <span><strong>N</strong>OBILITY</span> 
+                    </P>    
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h3 class="statement-title mb-3">
+                        <i class="fa-solid fa-palette me-3" style="color: #F0B92D;"></i>
+                        COLORS
+                    </h3>
+                    <p class="statement-para px-5">
+                        <span style="color: #000;" class="colors">BLACK</span> - ORIGINALITY<br>
+                        <span style="color: #176418;" class="colors">GREEN</span> - RELEVANT PRODUCTIVITY <br>
+                        <span style="color: #BF8C0D;" class="colors">GOLD</span> - PREMIUM AUTHENTICITY <br>
+                    </p>
+                </div>
+            </div>
+        </div>        
+    </div><hr>
+
+<!-- Payment Methods  -->
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="statement-title">
+                <i class="fa-solid fa-money-bill text-center" style="color: #F0B92D;"></i>
+                PAYMENT METHODS
+            </h3>
+            <marquee behavior="" direction="">
+                <img src="{{url_for('static',filename='img/meridian/payment-icon/1.png')}}" alt="" class="mx-5">
+                <img src="{{url_for('static',filename='img/meridian/payment-icon/2.png')}}" alt="" class="mx-5">
+                <img src="{{url_for('static',filename='img/meridian/payment-icon/3.png')}}" alt="" class="mx-5">
+                <img src="{{url_for('static',filename='img/meridian/payment-icon/4.png')}}" alt="" class="mx-5">
+                <img src="{{url_for('static',filename='img/meridian/payment-icon/5.png')}}" alt="" class="mx-5">
+                <img src="{{url_for('static',filename='img/meridian/payment-icon/6.png')}}" alt="" class="mx-5">
+                <img src="{{url_for('static',filename='img/meridian/payment-icon/7.png')}}" alt="" class="mx-5">
+        </marquee>
+        </div>
+    </div>
+</div>
+<!-- End Payment Methods  -->
+
+<!-- End About Us Div -->
+
+{% endblock %}
